@@ -1,8 +1,12 @@
 
 package View;
 
-public class customerDashboard extends javax.swing.JFrame {
+import Model.*;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
+public class customerDashboard extends javax.swing.JFrame {
+    DefaultTableModel dtm;
     /**
      * Creates new form customerDashboard
      */
@@ -38,7 +42,7 @@ public class customerDashboard extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         itemPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        producttable = new javax.swing.JTable();
+        cproducttable = new javax.swing.JTable();
         btnproductview = new javax.swing.JButton();
         btnaddorder = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -209,31 +213,33 @@ public class customerDashboard extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 102));
 
-        producttable.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        producttable.setModel(new javax.swing.table.DefaultTableModel(
+        cproducttable.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        cproducttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "PID", "Product Name", "Product Price", "Supplier Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(producttable);
+        jScrollPane4.setViewportView(cproducttable);
 
         btnproductview.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         btnproductview.setText("View Product");
         btnproductview.setBorder(null);
+        btnproductview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnproductviewActionPerformed(evt);
+            }
+        });
 
         btnaddorder.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         btnaddorder.setText("Add Order");
@@ -458,6 +464,31 @@ public class customerDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUfnameActionPerformed
 
+    private void btnproductviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproductviewActionPerformed
+        CuspDisplayModel Model = new CuspDisplayModel();
+        // Getting the value
+        List <CusProductViewModel> productList = Model.getProductData();
+        
+        dtm = (DefaultTableModel) cproducttable.getModel();
+        
+        // Clear existing rows in the table
+        dtm.setRowCount(0);
+
+        // Iterate over the product list and access the data
+        for (CusProductViewModel product : productList) {
+            int pid = product.getPid();
+            String productName = product.getProductname();
+            double productPrice = product.getProductprice();
+            String supplierUsername = product.getSuppplierusername();
+
+            // Create an object with product data
+            Object[] rowData = {pid, productName, productPrice, supplierUsername};
+
+            // Add the row to the table model
+            dtm.addRow((Object[]) rowData);
+        }
+    }//GEN-LAST:event_btnproductviewActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -499,6 +530,7 @@ public class customerDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnproductview;
     private javax.swing.JButton btnvieworder;
     private javax.swing.JButton btnvieworder1;
+    private javax.swing.JTable cproducttable;
     private javax.swing.JPanel detailPanel;
     private javax.swing.JPanel itemPanel;
     private javax.swing.JButton jButton1;
@@ -516,7 +548,6 @@ public class customerDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTable producttable;
     private javax.swing.JTable producttable1;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JTextField txtUemail;

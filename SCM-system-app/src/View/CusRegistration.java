@@ -13,7 +13,7 @@ public class CusRegistration extends javax.swing.JFrame {
     /**
      * Creates new form CusRegistration
      */
-    public CusRegistration() {
+    public CusRegistration(){
         initComponents();
     }
     public cusRegModel getUser()
