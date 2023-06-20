@@ -6,8 +6,8 @@ package Model;
 
 /**
  *
- * @author Lenovo
+ * @author rohan-manandhar
  */
-public class CustomerViewModel {
+public class SupplierAddProductModel {
     
 }
