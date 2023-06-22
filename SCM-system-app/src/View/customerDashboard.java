@@ -2,18 +2,42 @@
 package View;
 
 import Model.*;
+import Controller.*;
+import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class customerDashboard extends javax.swing.JFrame {
     DefaultTableModel dtm;
+    CustomerOrderController controller;
+    CustomerOrderModel model;
+    private CustomerDeleteOrderController controller1;
     /**
      * Creates new form customerDashboard
      */
     public customerDashboard() {
         initComponents();
+        controller1 = new CustomerDeleteOrderController(this);
     }
-
+    
+    // Sending data
+    public CustomerOrderModel getOrder(){
+        String cusername = txtcusername.getText();
+        int pid = Integer.parseInt(txtpid.getText());
+        String susername = txtSusername.getText();
+        
+        model = new CustomerOrderModel(cusername, pid, susername);
+        return model;
+    }
+    
+    // show message
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,17 +68,17 @@ public class customerDashboard extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         cproducttable = new javax.swing.JTable();
         btnproductview = new javax.swing.JButton();
-        btnaddorder = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        btnAddOrder = new javax.swing.JButton();
+        txtcusername = new javax.swing.JTextField();
+        txtpid = new javax.swing.JTextField();
+        txtSusername = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         detailPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         Ordertable = new javax.swing.JTable();
         btnvieworder = new javax.swing.JButton();
         txtousername = new javax.swing.JTextField();
-        btnvieworder1 = new javax.swing.JButton();
+        btnDeleteOrder = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,11 +129,6 @@ public class customerDashboard extends javax.swing.JFrame {
 
         txtUfname.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         txtUfname.setText("First name");
-        txtUfname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUfnameActionPerformed(evt);
-            }
-        });
 
         txtUlname.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         txtUlname.setText("Last name");
@@ -216,7 +235,10 @@ public class customerDashboard extends javax.swing.JFrame {
         cproducttable.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         cproducttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "PID", "Product Name", "Product Price", "Supplier Name"
@@ -241,26 +263,42 @@ public class customerDashboard extends javax.swing.JFrame {
             }
         });
 
-        btnaddorder.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        btnaddorder.setText("Add Order");
-        btnaddorder.setBorder(null);
-
-        jTextField1.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        jTextField1.setText("Your username");
-
-        jTextField2.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        jTextField2.setText("PID");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        btnAddOrder.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnAddOrder.setText("Add Order");
+        btnAddOrder.setBorder(null);
+        btnAddOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                btnAddOrderActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        jTextField3.setText("Supplier name");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+        txtcusername.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        txtcusername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtcusernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtcusernameFocusLost(evt);
+            }
+        });
+
+        txtpid.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        txtpid.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtpidFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtpidFocusLost(evt);
+            }
+        });
+
+        txtSusername.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        txtSusername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSusernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSusernameFocusLost(evt);
             }
         });
 
@@ -272,16 +310,17 @@ public class customerDashboard extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(itemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(itemPanelLayout.createSequentialGroup()
-                        .addComponent(btnproductview, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(itemPanelLayout.createSequentialGroup()
-                        .addComponent(btnaddorder, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addGroup(itemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(itemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(itemPanelLayout.createSequentialGroup()
+                            .addComponent(btnproductview, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(84, 84, 84)
+                            .addComponent(txtcusername, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                        .addGroup(itemPanelLayout.createSequentialGroup()
+                            .addComponent(btnAddOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(84, 84, 84)
+                            .addGroup(itemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtpid, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                                .addComponent(txtSusername)))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         itemPanelLayout.setVerticalGroup(
@@ -292,16 +331,16 @@ public class customerDashboard extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(itemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnproductview, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtcusername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(itemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(itemPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtpid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSusername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(itemPanelLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(btnaddorder, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAddOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -352,14 +391,26 @@ public class customerDashboard extends javax.swing.JFrame {
         btnvieworder.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         btnvieworder.setText("View order");
         btnvieworder.setBorder(null);
+        btnvieworder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnvieworderActionPerformed(evt);
+            }
+        });
 
         txtousername.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtousername.setText("Your username");
+        txtousername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtousernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtousernameFocusLost(evt);
+            }
+        });
 
-        btnvieworder1.setBackground(new java.awt.Color(153, 153, 255));
-        btnvieworder1.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        btnvieworder1.setText("Delete order");
-        btnvieworder1.setBorder(null);
+        btnDeleteOrder.setBackground(new java.awt.Color(153, 153, 255));
+        btnDeleteOrder.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnDeleteOrder.setText("Delete order");
+        btnDeleteOrder.setBorder(null);
 
         javax.swing.GroupLayout detailPanelLayout = new javax.swing.GroupLayout(detailPanel);
         detailPanel.setLayout(detailPanelLayout);
@@ -370,7 +421,7 @@ public class customerDashboard extends javax.swing.JFrame {
                 .addGroup(detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(detailPanelLayout.createSequentialGroup()
-                        .addComponent(btnvieworder1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDeleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(txtousername, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
@@ -386,7 +437,7 @@ public class customerDashboard extends javax.swing.JFrame {
                 .addGroup(detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnvieworder, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtousername, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnvieworder1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -452,19 +503,8 @@ public class customerDashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void txtUfnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUfnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUfnameActionPerformed
-
     private void btnproductviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproductviewActionPerformed
+        
         CuspDisplayModel Model = new CuspDisplayModel();
         // Getting the value
         List <CusProductViewModel> productList = Model.getProductData();
@@ -489,9 +529,146 @@ public class customerDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnproductviewActionPerformed
 
+    private void txtcusernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcusernameFocusGained
+        if (txtcusername.getText().equals("Enter your username: "))
+        {
+            txtcusername.setText("");
+            txtcusername.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txtcusernameFocusGained
+
+    private void txtcusernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcusernameFocusLost
+        if (txtcusername.getText().equals(""))
+        {
+            txtcusername.setText("Enter your username: ");
+            txtcusername.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtcusernameFocusLost
+
+    private void txtpidFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpidFocusGained
+        if (txtpid.getText().equals("Enter Product ID:"))
+        {
+            txtpid.setText("");
+            txtpid.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txtpidFocusGained
+
+    private void txtpidFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpidFocusLost
+        if (txtpid.getText().equals(""))
+        {
+            txtpid.setText("Enter Product ID:");
+            txtpid.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtpidFocusLost
+
+    private void txtSusernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSusernameFocusGained
+        if (txtSusername.getText().equals("Enter supplier name: "))
+        {
+            txtSusername.setText("");
+            txtSusername.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txtSusernameFocusGained
+
+    private void txtSusernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSusernameFocusLost
+        if (txtSusername.getText().equals(""))
+        {
+            txtSusername.setText("Enter supplier name: ");
+            txtSusername.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtSusernameFocusLost
+
+    private void btnAddOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrderActionPerformed
+        if (controller == null){
+            controller = new CustomerOrderController(this);
+        }
+    }//GEN-LAST:event_btnAddOrderActionPerformed
+
+    private void txtousernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtousernameFocusGained
+        if (txtousername.getText().equals("Username:")){
+            txtousername.setText("");
+            txtousername.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtousernameFocusGained
+
+    private void txtousernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtousernameFocusLost
+        if (txtousername.getText().equals("")){
+            txtousername.setText("Username:");
+            txtousername.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtousernameFocusLost
+
+    private void btnvieworderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvieworderActionPerformed
+        String username = txtousername.getText(); // Get the username from the text field
+        if (username.isEmpty()) {
+        // Displaying an error message if the username is empty
+        JOptionPane.showMessageDialog(null, "Please enter a valid customer name.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        
+        CustomerOrderViewModel Model = new CustomerOrderViewModel();
+        List <CustomerOrderDataModel> orderList = Model.getOrderData(username); // Getting the value
+        
+        if (orderList.isEmpty()) {
+        // Displaying a message if no order data found for the customer
+        JOptionPane.showMessageDialog(null, "No order data found for the specified customer.", "No Data", JOptionPane.INFORMATION_MESSAGE);
+        return;
+        }
+
+        dtm = (DefaultTableModel)Ordertable.getModel();
+        dtm.setRowCount(0);
+        
+        for (CustomerOrderDataModel order : orderList) {
+            int orderid = order.getOrderid();
+            String customername = order.getCustomername();
+            int productid = order.getProductid();
+            
+            Object[] rowData = {orderid, customername, productid};
+            dtm.addRow((Object[]) rowData);
+        }
+    }//GEN-LAST:event_btnvieworderActionPerformed
+    
+    // actionListener
+    public void addOrderButtonListener(ActionListener listener) {
+        btnAddOrder.addActionListener(listener);
+    }
+    
+    public void AddDeleteButtonLIstener(ActionListener listener){
+        btnDeleteOrder.addActionListener(listener);
+    }
+    
+    // buttons action
+    public JButton getBtnAddOrder(){
+        return btnAddOrder;
+    }
+    
+    public JButton getBtnDeleteOrder(){
+        return btnDeleteOrder;
+    }
+    
+    // Sending Tabledata
+    public JTable getOrderTable (){
+        return Ordertable;
+    }
+    
+    // clear fields
+    public void orderclearFields(){
+        txtcusername.setText("");
+        txtSusername.setText("");
+        txtpid.setText("");
+    }
+    // Messages
+    public void displayErrorMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void displaySuccessMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     /**
      * @param args the command line arguments
      */
+    @SuppressWarnings("Convert2Lambda")
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -515,9 +692,11 @@ public class customerDashboard extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(customerDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new customerDashboard().setVisible(true);
             }
@@ -526,10 +705,10 @@ public class customerDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Ordertable;
-    private javax.swing.JButton btnaddorder;
+    private javax.swing.JButton btnAddOrder;
+    private javax.swing.JButton btnDeleteOrder;
     private javax.swing.JButton btnproductview;
     private javax.swing.JButton btnvieworder;
-    private javax.swing.JButton btnvieworder1;
     private javax.swing.JTable cproducttable;
     private javax.swing.JPanel detailPanel;
     private javax.swing.JPanel itemPanel;
@@ -545,18 +724,19 @@ public class customerDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable producttable1;
     private javax.swing.JPanel profilePanel;
+    private javax.swing.JTextField txtSusername;
     private javax.swing.JTextField txtUemail;
     private javax.swing.JTextField txtUfname;
     private javax.swing.JTextField txtUlname;
     private javax.swing.JTextField txtUpassword;
     private javax.swing.JTextField txtUphone;
     private javax.swing.JTextField txtUusername;
+    private javax.swing.JTextField txtcusername;
     private javax.swing.JTextField txtdeleteid;
     private javax.swing.JTextField txtousername;
+    private javax.swing.JTextField txtpid;
     // End of variables declaration//GEN-END:variables
+
 }

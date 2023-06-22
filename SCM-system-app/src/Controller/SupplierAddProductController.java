@@ -8,6 +8,6 @@ package Controller;
  *
  * @author rohan-manandhar
  */
-public class SupplierAddProduct {
+public class SupplierAddProductController {
     
 }
