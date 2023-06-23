@@ -64,8 +64,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
                               <Component id="jTabbedPane1" min="-2" pref="735" max="-2" attributes="0"/>
+                              <Component id="btnLogout" min="-2" pref="151" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -81,8 +81,8 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jTabbedPane1" min="-2" pref="483" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="btnLogout" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <Component id="btnLogout" min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -542,30 +542,27 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace pref="18" max="32767" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="633" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" min="-2" pref="642" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtSdeleteid" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
-                                  <Component id="btnSdelete" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="btnScreate" alignment="0" pref="114" max="32767" attributes="0"/>
-                                      <Component id="btnSview" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnSview" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnScreate" alignment="0" pref="127" max="32767" attributes="0"/>
+                                  <Component id="btnSdelete" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="171" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtSpassword" min="-2" pref="170" max="-2" attributes="0"/>
                                   <Component id="txtSemail" alignment="0" min="-2" pref="252" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                       <Component id="txtcompanyname" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
                                       <Component id="txtSusername" alignment="1" min="-2" pref="170" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="txtSphone" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                                  <Component id="txtSpassword" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                           </Group>
@@ -576,15 +573,15 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="149" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="btnScreate" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="btnSview" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="btnSview" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Component id="txtSusername" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="txtcompanyname" min="-2" max="-2" attributes="0"/>
@@ -592,17 +589,14 @@
                                       <Component id="txtSemail" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtSphone" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtSdeleteid" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtSphone" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnSdelete" min="-2" pref="34" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtSpassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnSdelete" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtSpassword" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -621,12 +615,12 @@
                               <Font name="Ubuntu Mono" size="15" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="4">
-                                <Column editable="true" title="Username" type="java.lang.Object"/>
-                                <Column editable="true" title="Company Name" type="java.lang.Object"/>
-                                <Column editable="true" title="Email" type="java.lang.Object"/>
-                                <Column editable="true" title="Phone" type="java.lang.Object"/>
-                                <Column editable="true" title="Password" type="java.lang.Object"/>
+                              <Table columnCount="5" rowCount="0">
+                                <Column editable="false" title="Username" type="java.lang.Object"/>
+                                <Column editable="false" title="Company Name" type="java.lang.Object"/>
+                                <Column editable="false" title="Email" type="java.lang.Object"/>
+                                <Column editable="false" title="Phone" type="java.lang.Object"/>
+                                <Column editable="false" title="Password" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -669,47 +663,56 @@
                       </SubComponents>
                     </Container>
                     <Component class="javax.swing.JTextField" name="txtSusername">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="username"/>
-                      </Properties>
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSusernameFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSusernameFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnSview">
                       <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="cc" green="99" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Ubuntu Mono" size="15" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="View user"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSviewActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtcompanyname">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Compnay name"/>
-                      </Properties>
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtcompanynameFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtcompanynameFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSemail">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="email"/>
-                      </Properties>
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSemailFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSemailFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSpassword">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="password"/>
-                      </Properties>
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSpasswordFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSpasswordFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSphone">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="phone"/>
-                      </Properties>
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSphoneFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSphoneFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnScreate">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Create user"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtSdeleteid">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="delet id"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSdeleteidActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnSdelete">
                       <Properties>
@@ -747,7 +750,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="26" max="32767" attributes="0"/>
+                          <EmptySpace pref="32" max="32767" attributes="0"/>
                           <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
@@ -767,25 +770,21 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtPdeleteid" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
-                                  <Component id="btnPdelteid" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="btnPupdate" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnPview" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="btnPupdate" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnPview" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnPdelteid" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtSemail1" alignment="0" min="-2" pref="252" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="txtcompanyname1" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                                      <Component id="txtSusername1" alignment="1" min="-2" pref="170" max="-2" attributes="0"/>
+                                      <Component id="txtproductname" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
+                                      <Component id="txtpid" alignment="1" min="-2" pref="170" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="txtSphone1" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                                  <Component id="txtSpassword1" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
+                                  <Component id="txtproductprice" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
+                                  <Component id="txtsuppliername" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -799,28 +798,22 @@
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                       <Component id="btnPupdate" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="btnPview" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnPview" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="btnPdelteid" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                      <Component id="txtSusername1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtpid" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="txtcompanyname1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtproductname" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="txtproductprice" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="txtSemail1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtsuppliername" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtSphone1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtPdeleteid" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtSpassword1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnPdelteid" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="51" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -833,27 +826,21 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="suppliertable1">
+                        <Component class="javax.swing.JTable" name="producttable">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Ubuntu Mono" size="15" style="0"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="4">
-                                <Column editable="true" title="Username" type="java.lang.Object"/>
-                                <Column editable="true" title="Company Name" type="java.lang.Object"/>
-                                <Column editable="true" title="Email" type="java.lang.Object"/>
-                                <Column editable="true" title="Phone" type="java.lang.Object"/>
-                                <Column editable="true" title="Password" type="java.lang.Object"/>
+                              <Table columnCount="4" rowCount="0">
+                                <Column editable="false" title="Product ID" type="java.lang.Object"/>
+                                <Column editable="false" title="Product name" type="java.lang.Object"/>
+                                <Column editable="false" title="Product price" type="java.lang.Object"/>
+                                <Column editable="false" title="Supplier Name" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -886,48 +873,48 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JTextField" name="txtSusername1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="username"/>
-                      </Properties>
+                    <Component class="javax.swing.JTextField" name="txtpid">
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtpidFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtpidFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnPview">
                       <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="cc" green="99" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Ubuntu Mono" size="15" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="View products"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPviewActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtcompanyname1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Compnay name"/>
-                      </Properties>
+                    <Component class="javax.swing.JTextField" name="txtproductname">
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtproductnameFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtproductnameFocusLost"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtSemail1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="email"/>
-                      </Properties>
+                    <Component class="javax.swing.JTextField" name="txtsuppliername">
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtsuppliernameFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtsuppliernameFocusLost"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtSpassword1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="password"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtSphone1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="phone"/>
-                      </Properties>
+                    <Component class="javax.swing.JTextField" name="txtproductprice">
+                      <Events>
+                        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtproductpriceFocusGained"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtproductpriceFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnPupdate">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Update product"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtPdeleteid">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="delet id"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPdeleteidActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnPdelteid">
                       <Properties>
@@ -943,12 +930,15 @@
         <Component class="javax.swing.JButton" name="btnLogout">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
+              <Color blue="4a" green="4a" id="Control Dk Shadow" palette="2" red="4a" type="palette"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Ubuntu Mono" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Boss Log out"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
           <Events>
