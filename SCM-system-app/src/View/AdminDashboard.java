@@ -16,7 +16,9 @@ import java.util.*;
 public class AdminDashboard extends javax.swing.JFrame {
     DefaultTableModel dtm;
     AdminCdeleteModel model;
-    AdminCreateCustomerModel model1;
+    AdminCreateCustomerModel Model ;
+    private AdminCreateCustomerController Accc;
+    private adminCdeleteController D1;
             
     /**
      * Creates new form adminDashboard
@@ -70,20 +72,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         txtSpassword = new javax.swing.JTextField();
         txtSphone = new javax.swing.JTextField();
         btnScreate = new javax.swing.JButton();
-        txtSdeleteid = new javax.swing.JTextField();
         btnSdelete = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        suppliertable1 = new javax.swing.JTable();
-        txtSusername1 = new javax.swing.JTextField();
+        producttable = new javax.swing.JTable();
+        txtpid = new javax.swing.JTextField();
         btnPview = new javax.swing.JButton();
-        txtcompanyname1 = new javax.swing.JTextField();
-        txtSemail1 = new javax.swing.JTextField();
-        txtSpassword1 = new javax.swing.JTextField();
-        txtSphone1 = new javax.swing.JTextField();
+        txtproductname = new javax.swing.JTextField();
+        txtsuppliername = new javax.swing.JTextField();
+        txtproductprice = new javax.swing.JTextField();
         btnPupdate = new javax.swing.JButton();
-        txtPdeleteid = new javax.swing.JTextField();
         btnPdelteid = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
 
@@ -367,38 +366,79 @@ public class AdminDashboard extends javax.swing.JFrame {
         suppliertable.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         suppliertable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Username", "Company Name", "Email", "Phone", "Password"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         suppliertable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane2.setViewportView(suppliertable);
 
-        txtSusername.setText("username");
-
-        btnSview.setText("View user");
-
-        txtcompanyname.setText("Compnay name");
-
-        txtSemail.setText("email");
-
-        txtSpassword.setText("password");
-
-        txtSphone.setText("phone");
-
-        btnScreate.setText("Create user");
-
-        txtSdeleteid.setText("delet id");
-        txtSdeleteid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSdeleteidActionPerformed(evt);
+        txtSusername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSusernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSusernameFocusLost(evt);
             }
         });
+
+        btnSview.setBackground(new java.awt.Color(0, 153, 204));
+        btnSview.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnSview.setText("View user");
+        btnSview.setBorder(null);
+        btnSview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSviewActionPerformed(evt);
+            }
+        });
+
+        txtcompanyname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtcompanynameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtcompanynameFocusLost(evt);
+            }
+        });
+
+        txtSemail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSemailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSemailFocusLost(evt);
+            }
+        });
+
+        txtSpassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSpasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSpasswordFocusLost(evt);
+            }
+        });
+
+        txtSphone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSphoneFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSphoneFocusLost(evt);
+            }
+        });
+
+        btnScreate.setText("Create user");
 
         btnSdelete.setText("Delete user");
 
@@ -406,26 +446,24 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnScreate, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                    .addComponent(btnSdelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSdelete)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnScreate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                        .addComponent(btnSview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSemail, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(txtcompanyname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtSusername, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtSphone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSphone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(94, 94, 94))
         );
         jPanel7Layout.setVerticalGroup(
@@ -433,28 +471,26 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
                         .addComponent(btnScreate)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnSview))
+                        .addGap(31, 31, 31)
+                        .addComponent(btnSview, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addComponent(txtSusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtcompanyname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtSemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSdelete))
-                .addGap(0, 25, Short.MAX_VALUE))
+                    .addComponent(btnSdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -478,41 +514,72 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(140, 100, 29));
 
-        suppliertable1.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        suppliertable1.setModel(new javax.swing.table.DefaultTableModel(
+        producttable.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        producttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Username", "Company Name", "Email", "Phone", "Password"
+                "Product ID", "Product name", "Product price", "Supplier Name"
             }
-        ));
-        suppliertable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane3.setViewportView(suppliertable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        txtSusername1.setText("username");
-
-        btnPview.setText("View products");
-
-        txtcompanyname1.setText("Compnay name");
-
-        txtSemail1.setText("email");
-
-        txtSpassword1.setText("password");
-
-        txtSphone1.setText("phone");
-
-        btnPupdate.setText("Update product");
-
-        txtPdeleteid.setText("delet id");
-        txtPdeleteid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPdeleteidActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        producttable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane3.setViewportView(producttable);
+
+        txtpid.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtpidFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtpidFocusLost(evt);
+            }
+        });
+
+        btnPview.setBackground(new java.awt.Color(0, 153, 204));
+        btnPview.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnPview.setText("View products");
+        btnPview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPviewActionPerformed(evt);
+            }
+        });
+
+        txtproductname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtproductnameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtproductnameFocusLost(evt);
+            }
+        });
+
+        txtsuppliername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtsuppliernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtsuppliernameFocusLost(evt);
+            }
+        });
+
+        txtproductprice.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtproductpriceFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtproductpriceFocusLost(evt);
+            }
+        });
+
+        btnPupdate.setText("Update product");
 
         btnPdelteid.setText("Delete user");
 
@@ -526,21 +593,18 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPdelteid)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnPupdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnPupdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPdelteid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSemail1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtcompanyname1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtSusername1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtSphone1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(94, 94, 94))
+                        .addComponent(txtproductname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtpid, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtproductprice, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtsuppliername, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(176, 176, 176))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,23 +616,19 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(btnPupdate)
                         .addGap(30, 30, 30)
-                        .addComponent(btnPview))
+                        .addComponent(btnPview, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnPdelteid, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(txtSusername1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtpid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtcompanyname1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtproductname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(txtproductprice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtSemail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSphone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSpassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPdelteid))
-                .addGap(0, 25, Short.MAX_VALUE))
+                        .addComponent(txtsuppliername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -583,16 +643,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
 
         jTabbedPane1.addTab("Product", jPanel8);
 
-        btnLogout.setBackground(new java.awt.Color(153, 153, 153));
+        btnLogout.setBackground(java.awt.SystemColor.controlDkShadow);
         btnLogout.setFont(new java.awt.Font("Ubuntu Mono", 0, 18)); // NOI18N
         btnLogout.setText("Boss Log out");
+        btnLogout.setBorder(null);
         btnLogout.setOpaque(true);
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -612,8 +673,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLogout)
-                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -624,8 +685,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -651,23 +712,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void txtSdeleteidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdeleteidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSdeleteidActionPerformed
-
-    private void txtPdeleteidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPdeleteidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPdeleteidActionPerformed
-
     @SuppressWarnings("empty-statement")
     private void btnCviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCviewActionPerformed
-        // TODO add your handling code here:
         AdminCdisplay Model = new AdminCdisplay();
         List<AdminCmodel> customerList = Model.getCustomerData();
         
         dtm = (DefaultTableModel)customertable.getModel();
-        
-        // setting the row fixed to 0
         dtm.setRowCount(0);
         // Iterate over the customer list and access the data
         for (AdminCmodel customer : customerList) {
@@ -688,145 +738,299 @@ public class AdminDashboard extends javax.swing.JFrame {
             System.out.println(username);
         }
             // checking this as alternative 
-//           customertable.setModel(dtm);
+            //customertable.setModel(dtm);
     }//GEN-LAST:event_btnCviewActionPerformed
 
     private void btnCdeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCdeleteActionPerformed
-        adminCdeleteController D1 = new adminCdeleteController(this);
+        if (D1 == null ){
+            D1 = new adminCdeleteController(this);
+        }
     }//GEN-LAST:event_btnCdeleteActionPerformed
     
-    public AdminCdeleteModel getUser()
-    {
+    public AdminCdeleteModel getUser(){
         model = new AdminCdeleteModel(txtCdeleteid.getText());
         return model;
     }
     
     //setting some style with focusGained and FocusLost
     private void txtCdeleteidFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCdeleteidFocusGained
-        // TODO add your handling code here:
-        if (txtCdeleteid.getText().equals("Enter ID"))
-        {
+    if (txtCdeleteid.getText().equals("Enter ID")){
             txtCdeleteid.setText("");
             txtCdeleteid.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_txtCdeleteidFocusGained
 
     private void txtCdeleteidFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCdeleteidFocusLost
-        // TODO add your handling code here:
-        if (txtCdeleteid.getText().isEmpty())
-        {
+        if (txtCdeleteid.getText().isEmpty()){
             txtCdeleteid.setText("Enter ID");
             txtCdeleteid.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtCdeleteidFocusLost
 
-    private void txtCusernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusernameFocusGained
-        // TODO add your handling code here:
-        if (txtCusername.getText().equals("Enter Username")){
-            txtCusername.setText("");
-            txtCusername.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_txtCusernameFocusGained
-
-    private void txtCusernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusernameFocusLost
-        // TODO add your handling code here:
-        if (txtCusername.getText().equals("")){
-            txtCusername.setText("Enter Username");
-            txtCusername.setForeground(Color.GRAY);
-        }
-    }//GEN-LAST:event_txtCusernameFocusLost
-
     private void txtCfnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCfnameFocusGained
-        // TODO add your handling code here:
-        if (txtCfname.getText().equals("Enter First name: ")){
+        if (txtCfname.getText().equals("First name: ")){
             txtCfname.setText("");
             txtCfname.setForeground(Color.black);
         }
     }//GEN-LAST:event_txtCfnameFocusGained
 
     private void txtCfnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCfnameFocusLost
-        // TODO add your handling code here:
         if (txtCfname.getText().equals("")){
-            txtCfname.setText("Enter First name: ");
+            txtCfname.setText("First name: ");
             txtCfname.setForeground(Color.gray);
         }
     }//GEN-LAST:event_txtCfnameFocusLost
 
     private void txtClnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClnameFocusGained
-        // TODO add your handling code here:
-        if (txtClname.getText().equals("Enter Last Name: ")){
+        if (txtClname.getText().equals("Last Name: ")){
             txtClname.setText("");
             txtClname.setForeground(Color.black);
         }
     }//GEN-LAST:event_txtClnameFocusGained
 
     private void txtClnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClnameFocusLost
-        // TODO add your handling code here:
         if (txtClname.getText().equals("")){
-            txtClname.setText("Enter Last Name: ");
+            txtClname.setText("Last Name: ");
             txtClname.setForeground(Color.gray);
         }
     }//GEN-LAST:event_txtClnameFocusLost
 
     private void txtCemailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCemailFocusGained
-        // TODO add your handling code here:
-        if (txtCemail.getText().equals("Enter your email: ")){
+        if (txtCemail.getText().equals("Email: ")){
             txtCemail.setText("");
             txtCemail.setForeground(Color.black);
         }
     }//GEN-LAST:event_txtCemailFocusGained
 
     private void txtCemailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCemailFocusLost
-        // TODO add your handling code here:
         if (txtCemail.getText().equals("")){
-            txtCemail.setText("Enter your email: ");
+            txtCemail.setText("Email: ");
             txtCemail.setForeground(Color.gray);
         }
     }//GEN-LAST:event_txtCemailFocusLost
 
     private void txtCphoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCphoneFocusGained
-        // TODO add your handling code here:
-        if (txtCphone.getText().equals("Enter your phone number: ")){
+        if (txtCphone.getText().equals("Phone number: ")){
             txtCphone.setText("");
             txtCphone.setForeground(Color.black);
         }
     }//GEN-LAST:event_txtCphoneFocusGained
 
     private void txtCphoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCphoneFocusLost
-        // TODO add your handling code here:
-        if (txtCphone.getText().equals("")){
-            txtCphone.setText("Enter your phone number: ");
+    if (txtCphone.getText().equals("")){
+            txtCphone.setText("Phone number: ");
             txtCphone.setForeground(Color.gray);
         }
     }//GEN-LAST:event_txtCphoneFocusLost
 
     private void txtCpasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpasswordFocusGained
-        // TODO add your handling code here:
-        if (txtCpassword.getText().equals("Enter password: "))
-        {
+    if (txtCpassword.getText().equals("Password: ")){
             txtCpassword.setText("");
             txtCpassword.setForeground(Color.black);
         }
     }//GEN-LAST:event_txtCpasswordFocusGained
 
     private void txtCpasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpasswordFocusLost
-        // TODO add your handling code here:
-        if (txtCpassword.getText().equals(""))
-        {
-            txtCpassword.setText("Enter password: ");
-            txtCpassword.setForeground(Color.gray);
+        if (txtCpassword.getText().equals("")){
+                txtCpassword.setText("Password: ");
+                txtCpassword.setForeground(Color.gray);
         }
     }//GEN-LAST:event_txtCpasswordFocusLost
 
     private void btnCcreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCcreateActionPerformed
-        // TODO add your handling code here:
-        AdminCreateCustomerController Accc = new AdminCreateCustomerController(this);
+        if ( Accc == null){
+            Accc = new AdminCreateCustomerController(this);
+        }
     }//GEN-LAST:event_btnCcreateActionPerformed
+
+    private void btnSviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSviewActionPerformed
+        AdminGetSupDataModel model = new AdminGetSupDataModel();
+        List<AdminSendSupDataModel> supplierList = model.getSupData();
+
+        dtm = (DefaultTableModel) suppliertable.getModel();
+        dtm.setRowCount(0);
+
+        for (AdminSendSupDataModel supplier : supplierList) {
+            String username = supplier.getUsername();
+            String companyName = supplier.getCompanyname();
+            String email = supplier.getEmail();
+            String phone = supplier.getPhone();
+            String password = supplier.getPassword();
+
+            Object[] rowData = {username, companyName, email, phone, password};
+            dtm.addRow(rowData);
+        }
+    }//GEN-LAST:event_btnSviewActionPerformed
+
+    private void btnPviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPviewActionPerformed
+        AdminGetProdDataModel model = new AdminGetProdDataModel();
+        List<AdminSendProdDataModel> productList = model.getProdData();
+
+        dtm = (DefaultTableModel) producttable.getModel();
+        dtm.setRowCount(0);
+
+        for (AdminSendProdDataModel product : productList) {
+            int pid = product.getPid();
+            String productName = product.getProductname();
+            double productPrice = product.getProductprice();
+            String supplierName = product.getSuppliername();
+
+            Object[] rowData = {pid, productName, productPrice, supplierName};
+            dtm.addRow(rowData);
+        }
+    }//GEN-LAST:event_btnPviewActionPerformed
+
+    private void txtCusernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusernameFocusGained
+        if (txtCusername.getText().equals("Username: ")){
+            txtCusername.setText("");
+            txtCusername.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtCusernameFocusGained
+
+    private void txtCusernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCusernameFocusLost
+        if (txtCusername.getText().equals("")){
+            txtCusername.setText("Username: ");
+            txtCusername.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtCusernameFocusLost
+
+    private void txtSusernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSusernameFocusGained
+        if (txtSusername.getText().equals("Username: ")){
+            txtSusername.setText("");
+            txtSusername.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtSusernameFocusGained
+
+    private void txtSusernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSusernameFocusLost
+        if (txtSusername.getText().equals("")){
+            txtSusername.setText("Username: ");
+            txtSusername.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtSusernameFocusLost
+
+    private void txtcompanynameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcompanynameFocusGained
+        if (txtcompanyname.getText().equals("Company name: ")){
+            txtcompanyname.setText("");
+            txtcompanyname.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtcompanynameFocusGained
+
+    private void txtcompanynameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcompanynameFocusLost
+        if (txtcompanyname.getText().equals("")){
+            txtcompanyname.setText("Company name: ");
+            txtcompanyname.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtcompanynameFocusLost
+
+    private void txtSemailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSemailFocusGained
+        if (txtSemail.getText().equals("Email: ")){
+            txtSemail.setText("");
+            txtSemail.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtSemailFocusGained
+
+    private void txtSemailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSemailFocusLost
+        if (txtSemail.getText().equals("")){
+            txtSemail.setText("Email: ");
+            txtSemail.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtSemailFocusLost
+
+    private void txtSphoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSphoneFocusGained
+        if (txtSphone.getText().equals("Phone Number: ")){
+            txtSphone.setText("");
+            txtSphone.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtSphoneFocusGained
+
+    private void txtSphoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSphoneFocusLost
+        if (txtSphone.getText().equals("")){
+            txtSphone.setText("Phone Number: ");
+            txtSphone.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtSphoneFocusLost
+
+    private void txtSpasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSpasswordFocusGained
+        if (txtSpassword.getText().equals("Password: ")){
+            txtSpassword.setText("");
+            txtSpassword.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtSpasswordFocusGained
+
+    private void txtSpasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSpasswordFocusLost
+        if (txtSpassword.getText().equals("")){
+            txtSpassword.setText("Password: ");
+            txtSpassword.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtSpasswordFocusLost
+
+    private void txtpidFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpidFocusGained
+        if (txtpid.getText().equals("Product ID: ")){
+            txtpid.setText("");
+            txtpid.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtpidFocusGained
+
+    private void txtpidFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpidFocusLost
+        if (txtpid.getText().equals("")){
+            txtpid.setText("Product ID: ");
+            txtpid.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtpidFocusLost
+
+    private void txtproductnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtproductnameFocusGained
+        if (txtproductname.getText().equals("Product name: ")){
+            txtproductname.setText("");
+            txtproductname.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtproductnameFocusGained
+
+    private void txtproductnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtproductnameFocusLost
+        if (txtproductname.getText().equals("")){
+            txtproductname.setText("Product name: ");
+            txtproductname.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtproductnameFocusLost
+
+    private void txtproductpriceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtproductpriceFocusGained
+        if (txtproductprice.getText().equals("Product price: ")){
+            txtproductprice.setText("");
+            txtproductprice.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtproductpriceFocusGained
+
+    private void txtproductpriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtproductpriceFocusLost
+        if (txtproductprice.getText().equals("")){
+            txtproductprice.setText("Product price: ");
+            txtproductprice.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtproductpriceFocusLost
+
+    private void txtsuppliernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtsuppliernameFocusGained
+        if (txtsuppliername.getText().equals("Supplier name: ")){
+            txtsuppliername.setText("");
+            txtsuppliername.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtsuppliernameFocusGained
+
+    private void txtsuppliernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtsuppliernameFocusLost
+        if (txtsuppliername.getText().equals("")){
+            txtsuppliername.setText("Supplier name: ");
+            txtsuppliername.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtsuppliernameFocusLost
     
     public AdminCreateCustomerModel getCUser()
-    {
-        model1 = new AdminCreateCustomerModel(txtCusername.getText(), txtCfname.getText(), txtClname.getText(), txtCemail.getText(), Integer.parseInt(txtCphone.getText()), txtCpassword.getText());
-        return model1;
+    {     
+        String username = txtCusername.getText();
+        String fname = txtCfname.getText();
+        String lname = txtClname.getText();
+        String email = txtCemail.getText();
+        String phone = txtCphone.getText();
+        String password = txtCpassword.getText();
+
+        Model = new AdminCreateCustomerModel(username, fname, lname, email, phone, password);
+        return Model;
     }
     /**
      * @param args the command line arguments
@@ -867,15 +1071,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
     }
     
-    
     // adding Actionlistener for required 
-    public void addLoginListner(ActionListener log)
-    {
+    public void addLoginListner(ActionListener log){
         btnCdelete.addActionListener(log);
     } 
     
-    public void addButtonListener(ActionListener log)
-    {
+    public void addButtonListener(ActionListener log){
         btnCcreate.addActionListener(log);
     }
     
@@ -912,8 +1113,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable producttable;
     private javax.swing.JTable suppliertable;
-    private javax.swing.JTable suppliertable1;
     private javax.swing.JTextField txtCdeleteid;
     private javax.swing.JTextField txtCemail;
     private javax.swing.JTextField txtCfname;
@@ -921,21 +1122,18 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField txtCpassword;
     private javax.swing.JTextField txtCphone;
     private javax.swing.JTextField txtCusername;
-    private javax.swing.JTextField txtPdeleteid;
-    private javax.swing.JTextField txtSdeleteid;
     private javax.swing.JTextField txtSemail;
-    private javax.swing.JTextField txtSemail1;
     private javax.swing.JTextField txtSpassword;
-    private javax.swing.JTextField txtSpassword1;
     private javax.swing.JTextField txtSphone;
-    private javax.swing.JTextField txtSphone1;
     private javax.swing.JTextField txtSusername;
-    private javax.swing.JTextField txtSusername1;
     private javax.swing.JTextField txtcompanyname;
-    private javax.swing.JTextField txtcompanyname1;
+    private javax.swing.JTextField txtpid;
+    private javax.swing.JTextField txtproductname;
+    private javax.swing.JTextField txtproductprice;
+    private javax.swing.JTextField txtsuppliername;
     // End of variables declaration//GEN-END:variables
 
-
+    // message methode
     public void setMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
