@@ -14,8 +14,8 @@ import java.awt.event.*;
  */
 public class cusUserController {
     
-    CusRegistration View;
-    cusRegModel Model;
+    private final CusRegistration View;
+    private cusRegModel Model;
     Connection conn;
     
     public cusUserController(CusRegistration View)
@@ -46,7 +46,7 @@ public class cusUserController {
                     View.setMessage("Invalid user data.");
                 }
             } catch (Exception e1) {
-                System.out.println(e1.getMessage());
+                View.setMessage("Invalid user data.");
             }
             
         }
@@ -84,54 +84,77 @@ public class cusUserController {
     
     public boolean checkUser(cusRegModel user) throws Exception
     {
-        conn = getConnection.dbConnect();
         String username = user.getUsername();
+        conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-        String sql = "SELECT * FROM customer WHERE username = ?";
-
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try {
+            conn = getConnection.dbConnect();
+            String sql = "SELECT * FROM customer WHERE username = ?";
+            stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
-
+            rs = stmt.executeQuery();
             return rs.next(); // Returns true if user exists, false otherwise
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            // Close the resources (stmt, conn) here if not closed already
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        
+
         return false;
     }
     
-    
+    // inserting the data
     public boolean insertUser(cusRegModel user) throws Exception {
-        conn = getConnection.dbConnect();
-        
         String username = user.getUsername();
         String fname = user.getFname();
         String lname = user.getLname();
         String email = user.getEmail();
         int phone = user.getPhone();
         String password = user.getPassword();
-        
-        String sql = "INSERT INTO customer (username, fname, lname, email, phone, password) VALUES (?, ?, ?, ?, ?, ?)";
+        conn = null;
+        PreparedStatement stmt = null;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try {
+            conn = getConnection.dbConnect();
+            String sql = "INSERT INTO customer (username, fname, lname, email, phone, password) VALUES (?, ?, ?, ?, ?, ?)";
+            stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             stmt.setString(2, fname);
             stmt.setString(3, lname);
             stmt.setString(4, email);
             stmt.setInt(5, phone);
             stmt.setString(6, password);
-
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            // Close the resources (stmt, conn) here if not closed already
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        
+
         return false;
     }
     
@@ -145,25 +168,38 @@ public class cusUserController {
         // Check if the email format is valid using a regular expression
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         if (!email.matches(emailRegex)) {
-            View.setMessage("Invalid email format.");
             return false; // Invalid email format
         }
 
-        // Check if the email already exists in the customer table
-        conn = getConnection.dbConnect();
-        String sql = "SELECT * FROM customer WHERE email = ?";
+        conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try {
+            conn = getConnection.dbConnect();
+            String sql = "SELECT * FROM customer WHERE email = ?";
+            stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-
+            rs = stmt.executeQuery();
             return !rs.next(); // Returns true if email does not exist, false otherwise
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            // Close the resources (stmt, conn) here if not closed already
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        
+
         return false; // Placeholder - assumes all emails are valid
     }
 }

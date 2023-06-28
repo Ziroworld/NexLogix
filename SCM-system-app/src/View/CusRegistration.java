@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,7 +6,8 @@ import Controller.*;
 import Model.*;
 
 public class CusRegistration extends javax.swing.JFrame {
-    cusRegModel Model;
+    cusRegModel initModel;
+    private cusUserController initCont;
     /**
      * Creates new form CusRegistration
      */
@@ -18,9 +16,16 @@ public class CusRegistration extends javax.swing.JFrame {
     }
     public cusRegModel getUser()
     {
-        // model = new cusUserModel(txtusername.getText(), txtpassword.getText());
-        Model = new cusRegModel(txtusername.getText(), txtfname.getText(), txtlname.getText(), txtemail.getText(),Integer.parseInt(txtphone.getText()), txtpassword.getText(), txtCpassword.getText());
-        return Model;
+        String username = txtusername.getText();
+        String fname = txtfname.getText();
+        String lname = txtlname.getText();
+        String email = txtemail.getText();
+        int phone = Integer.parseInt(txtphone.getText());
+        String password = txtpassword.getText();
+        String cpassword = txtCpassword.getText();
+
+        initModel = new cusRegModel(username, fname, lname, email, phone, password, cpassword);
+        return initModel;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -227,9 +232,10 @@ public class CusRegistration extends javax.swing.JFrame {
 //        btnregister.addActionListener(listener);
 //    }
     private void btnregisterActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
 //GEN-FIRST:event_btnRegisterActionPerformed
-       cusUserController R1 = new cusUserController(this);
+       if (initCont == null){
+            initCont = new cusUserController(this);
+        }
     }
 //GEN-LAST:event_btnRegisterActionPerformed
 
