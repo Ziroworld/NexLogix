@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/View/customerDashboard.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/View/supplierDashboard.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/View/CusRegistration.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/View/Loginwin.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/Model/supRegModel.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/Model/loginModel.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/Controller/LoginController.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/Model/CuspDisplayModel.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/Model/CusProductViewModel.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/View/AdminDashboard.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/View/supRegistration.java</file>
-            <file>file:/C:/Users/Lenovo/OneDrive/Desktop/Scm-app%20-git/NexLogix/SCM-system-app/src/Controller/cusUserController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
