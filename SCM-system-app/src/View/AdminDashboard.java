@@ -17,8 +17,12 @@ public class AdminDashboard extends javax.swing.JFrame {
     DefaultTableModel dtm;
     AdminCdeleteModel model;
     AdminCreateCustomerModel Model ;
+    AdminCreateSupModel initModel;
+    AdminUpdateProductModel initModel1;
     private AdminCreateCustomerController Accc;
     private adminCdeleteController D1;
+    private AdminCreateSupController initCont;
+    private AdminUpdateProductController initCont1;
             
     /**
      * Creates new form adminDashboard
@@ -27,6 +31,50 @@ public class AdminDashboard extends javax.swing.JFrame {
         initComponents();
     }
 
+    // sending data to model
+    
+    // cusDeleteID
+    public AdminCdeleteModel getUser(){
+        model = new AdminCdeleteModel(txtCdeleteid.getText());
+        return model;
+    }
+    
+    // cusModel
+    public AdminCreateCustomerModel getCUser()
+    {     
+        String username = txtCusername.getText();
+        String fname = txtCfname.getText();
+        String lname = txtClname.getText();
+        String email = txtCemail.getText();
+        String phone = txtCphone.getText();
+        String password = txtCpassword.getText();
+
+        Model = new AdminCreateCustomerModel(username, fname, lname, email, phone, password);
+        return Model;
+    }
+    
+    // supModel
+    public AdminCreateSupModel getSupUSer(){
+        String username = txtSusername.getText();
+        String companyname = txtcompanyname.getText();
+        String email = txtSemail.getText();
+        String phone = txtSphone.getText();
+        String password = txtSpassword.getText();
+        
+        initModel = new AdminCreateSupModel(username, companyname, email, phone, password);
+        return initModel;
+    }
+    
+    // prodModel
+    public AdminUpdateProductModel getProductdata(){
+        int pid = Integer.parseInt(txtpid.getText());
+        String productName = txtproductname.getText();
+        double productPrice = Double.parseDouble(txtproductprice.getText());
+        
+        initModel1 = new AdminUpdateProductModel(pid, productName, productPrice);
+        return initModel1;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,7 +128,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         txtpid = new javax.swing.JTextField();
         btnPview = new javax.swing.JButton();
         txtproductname = new javax.swing.JTextField();
-        txtsuppliername = new javax.swing.JTextField();
         txtproductprice = new javax.swing.JTextField();
         btnPupdate = new javax.swing.JButton();
         btnPdelteid = new javax.swing.JButton();
@@ -286,12 +333,11 @@ public class AdminDashboard extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCdelete)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnCcreate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCdeleteid, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                    .addComponent(btnCview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCcreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCdelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCemail, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,19 +358,18 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addComponent(txtCusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCfname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtClname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnCcreate)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnCview)))
+                        .addComponent(btnCcreate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCview, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -336,8 +381,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtCdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCdelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)))
                 .addGap(31, 31, 31))
         );
@@ -438,7 +483,14 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        btnScreate.setBackground(new java.awt.Color(0, 153, 204));
+        btnScreate.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         btnScreate.setText("Create user");
+        btnScreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScreateActionPerformed(evt);
+            }
+        });
 
         btnSdelete.setText("Delete user");
 
@@ -474,8 +526,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(btnScreate)
-                        .addGap(31, 31, 31)
+                        .addComponent(btnScreate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSview, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8))
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -544,7 +596,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
 
         btnPview.setBackground(new java.awt.Color(0, 153, 204));
-        btnPview.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnPview.setFont(new java.awt.Font("Ubuntu Mono", 0, 18)); // NOI18N
         btnPview.setText("View products");
         btnPview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -561,15 +613,6 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        txtsuppliername.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtsuppliernameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtsuppliernameFocusLost(evt);
-            }
-        });
-
         txtproductprice.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtproductpriceFocusGained(evt);
@@ -579,7 +622,14 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        btnPupdate.setBackground(new java.awt.Color(0, 153, 204));
+        btnPupdate.setFont(new java.awt.Font("Ubuntu Mono", 0, 18)); // NOI18N
         btnPupdate.setText("Update product");
+        btnPupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPupdateActionPerformed(evt);
+            }
+        });
 
         btnPdelteid.setText("Delete user");
 
@@ -598,37 +648,30 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(btnPview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPdelteid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtproductname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtpid, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtproductprice, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtsuppliername, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(176, 176, 176))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtpid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(txtproductname, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(txtproductprice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtpid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnPupdate)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnPview, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnPdelteid, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(txtpid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtproductname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtproductprice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtsuppliername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 51, Short.MAX_VALUE))
+                    .addComponent(btnPview, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtproductname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPdelteid, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtproductprice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -643,7 +686,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -746,12 +789,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             D1 = new adminCdeleteController(this);
         }
     }//GEN-LAST:event_btnCdeleteActionPerformed
-    
-    public AdminCdeleteModel getUser(){
-        model = new AdminCdeleteModel(txtCdeleteid.getText());
-        return model;
-    }
-    
+
     //setting some style with focusGained and FocusLost
     private void txtCdeleteidFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCdeleteidFocusGained
     if (txtCdeleteid.getText().equals("Enter ID")){
@@ -1006,32 +1044,35 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtproductpriceFocusLost
 
-    private void txtsuppliernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtsuppliernameFocusGained
-        if (txtsuppliername.getText().equals("Supplier name: ")){
-            txtsuppliername.setText("");
-            txtsuppliername.setForeground(Color.black);
+    private void btnScreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScreateActionPerformed
+        if( initCont == null ){
+            initCont = new AdminCreateSupController(this);
         }
-    }//GEN-LAST:event_txtsuppliernameFocusGained
+    }//GEN-LAST:event_btnScreateActionPerformed
 
-    private void txtsuppliernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtsuppliernameFocusLost
-        if (txtsuppliername.getText().equals("")){
-            txtsuppliername.setText("Supplier name: ");
-            txtsuppliername.setForeground(Color.gray);
+    private void btnPupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPupdateActionPerformed
+        if (initCont1 == null){
+            initCont1 = new AdminUpdateProductController(this);
         }
-    }//GEN-LAST:event_txtsuppliernameFocusLost
+    }//GEN-LAST:event_btnPupdateActionPerformed
     
-    public AdminCreateCustomerModel getCUser()
-    {     
-        String username = txtCusername.getText();
-        String fname = txtCfname.getText();
-        String lname = txtClname.getText();
-        String email = txtCemail.getText();
-        String phone = txtCphone.getText();
-        String password = txtCpassword.getText();
-
-        Model = new AdminCreateCustomerModel(username, fname, lname, email, phone, password);
-        return Model;
+    // adding Actionlistener for required 
+    public void addLoginListner(ActionListener log){
+        btnCdelete.addActionListener(log);
+    } 
+    
+    public void addButtonListener(ActionListener log){
+        btnCcreate.addActionListener(log); 
     }
+    
+    public void addCreateSupListener(ActionListener create){
+        btnScreate.addActionListener(create);
+    }
+    
+    public void addUpdateProdListerner( ActionListener update){
+        btnPupdate.addActionListener(update);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1071,14 +1112,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
     }
     
-    // adding Actionlistener for required 
-    public void addLoginListner(ActionListener log){
-        btnCdelete.addActionListener(log);
-    } 
-    
-    public void addButtonListener(ActionListener log){
-        btnCcreate.addActionListener(log);
-    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1130,12 +1163,34 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField txtpid;
     private javax.swing.JTextField txtproductname;
     private javax.swing.JTextField txtproductprice;
-    private javax.swing.JTextField txtsuppliername;
     // End of variables declaration//GEN-END:variables
 
     // message methode
     public void setMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
-
+    // clearing the data
+    
+    public void clearFields1(){
+        txtCusername.setText("");
+        txtCfname.setText("");
+        txtCemail.setText("");
+        txtClname.setText("");
+        txtCphone.setText("");
+        txtCpassword.setText("");
+    }
+    
+    public void clearFields2(){
+        txtSusername.setText("");
+        txtSemail.setText("");
+        txtSphone.setText("");
+        txtSpassword.setText("");
+        txtcompanyname.setText("");
+    }
+    
+    public void clearFields3(){
+        txtpid.setText("");
+        txtproductname.setText("");
+        txtproductprice.setText("");
+   }
 }
