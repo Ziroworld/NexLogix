@@ -3,25 +3,29 @@ package View;
 
 import Model.*;
 import Controller.*;
+import Database.*;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class customerDashboard extends javax.swing.JFrame {
     DefaultTableModel dtm;
     CustomerOrderController controller;
     CustomerOrderModel model;
-    private CustomerDeleteOrderController controller1;
+    CusUpdateSelfModel model1;
+    private final CustomerDeleteOrderController controller1;
+    CusUpdateSelfController controller2;
+    private final CusDeleteSelfController controller3;
+    
     /**
      * Creates new form customerDashboard
      */
     public customerDashboard() {
         initComponents();
         controller1 = new CustomerDeleteOrderController(this);
+        controller3 = new CusDeleteSelfController(this);
     }
     
     // Sending data
@@ -52,9 +56,9 @@ public class customerDashboard extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         profilePanel = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        producttable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cusTable = new javax.swing.JTable();
+        btnFetch = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         txtUusername = new javax.swing.JTextField();
         txtdeleteid = new javax.swing.JTextField();
@@ -63,6 +67,7 @@ public class customerDashboard extends javax.swing.JFrame {
         txtUpassword = new javax.swing.JTextField();
         txtUemail = new javax.swing.JTextField();
         txtUphone = new javax.swing.JTextField();
+        btnDeleteId = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         itemPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -80,6 +85,7 @@ public class customerDashboard extends javax.swing.JFrame {
         txtousername = new javax.swing.JTextField();
         btnDeleteOrder = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Customer Dashboard");
@@ -89,8 +95,8 @@ public class customerDashboard extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 102));
 
-        producttable1.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        producttable1.setModel(new javax.swing.table.DefaultTableModel(
+        cusTable.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        cusTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
@@ -107,40 +113,103 @@ public class customerDashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(producttable1);
+        jScrollPane5.setViewportView(cusTable);
 
-        jButton1.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        jButton1.setText("Fetch data");
-        jButton1.setBorder(null);
+        btnFetch.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnFetch.setText("Fetch data");
+        btnFetch.setBorder(null);
+        btnFetch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFetchActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        jButton2.setText("Update ID");
-        jButton2.setBorder(null);
+        btnUpdate.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnUpdate.setText("Update ID");
+        btnUpdate.setBorder(null);
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        jButton3.setText("Delete ID");
+        jButton3.setText("Update username");
         jButton3.setBorder(null);
 
         txtUusername.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtUusername.setText("Username");
+        txtUusername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUusernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUusernameFocusLost(evt);
+            }
+        });
 
         txtdeleteid.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtdeleteid.setText("Delete ID");
+        txtdeleteid.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtdeleteidFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtdeleteidFocusLost(evt);
+            }
+        });
 
         txtUfname.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtUfname.setText("First name");
+        txtUfname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUfnameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUfnameFocusLost(evt);
+            }
+        });
 
         txtUlname.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtUlname.setText("Last name");
+        txtUlname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUlnameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUlnameFocusLost(evt);
+            }
+        });
 
         txtUpassword.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtUpassword.setText("Password");
+        txtUpassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUpasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUpasswordFocusLost(evt);
+            }
+        });
 
         txtUemail.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtUemail.setText("Email");
+        txtUemail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUemailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUemailFocusLost(evt);
+            }
+        });
 
         txtUphone.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
-        txtUphone.setText("Phone number");
+        txtUphone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUphoneFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUphoneFocusLost(evt);
+            }
+        });
+
+        btnDeleteId.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnDeleteId.setText("Delete ID");
+        btnDeleteId.setBorder(null);
 
         javax.swing.GroupLayout profilePanelLayout = new javax.swing.GroupLayout(profilePanel);
         profilePanel.setLayout(profilePanelLayout);
@@ -148,67 +217,63 @@ public class customerDashboard extends javax.swing.JFrame {
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
                 .addContainerGap(32, Short.MAX_VALUE)
-                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(494, 494, 494))
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(profilePanelLayout.createSequentialGroup()
                         .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(profilePanelLayout.createSequentialGroup()
-                                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(118, 118, 118)
-                                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtUusername, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUphone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUemail, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(profilePanelLayout.createSequentialGroup()
-                                .addGap(234, 234, 234)
-                                .addComponent(txtUfname, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(txtUlname, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))))
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDeleteId, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(85, 85, 85)
+                        .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUusername, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUphone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUemail, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(profilePanelLayout.createSequentialGroup()
+                        .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtdeleteid)
+                            .addComponent(btnFetch, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+                        .addGap(85, 85, 85)
+                        .addComponent(txtUfname, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtUlname, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5))
+                .addGap(28, 28, 28))
         );
         profilePanelLayout.setVerticalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFetch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUusername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(profilePanelLayout.createSequentialGroup()
-                        .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(profilePanelLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(txtUlname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUfname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtUemail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                        .addGap(15, 15, 15)
+                        .addComponent(txtUlname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)))
+                        .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUfname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUemail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(profilePanelLayout.createSequentialGroup()
-                        .addComponent(txtUphone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtUpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(profilePanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(15, 15, 15)
+                        .addComponent(txtUphone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(txtdeleteid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -224,7 +289,7 @@ public class customerDashboard extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(profilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -463,16 +528,28 @@ public class customerDashboard extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Noto Serif CJK KR", 1, 36)); // NOI18N
         jLabel1.setText("Welcome to Customer Dashboard");
 
+        btnLogout.setBackground(new java.awt.Color(110, 23, 139));
+        btnLogout.setFont(new java.awt.Font("NTR", 1, 20)); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.setBorder(null);
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,22 +558,20 @@ public class customerDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -626,14 +701,172 @@ public class customerDashboard extends javax.swing.JFrame {
             dtm.addRow((Object[]) rowData);
         }
     }//GEN-LAST:event_btnvieworderActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        if (controller2 == null){
+            controller2 = new CusUpdateSelfController(this);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnFetchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFetchActionPerformed
+        String id = txtdeleteid.getText();
+        
+        if (id.isEmpty()) {
+            // Displaying an error message if the username is empty
+            JOptionPane.showMessageDialog(null, "Please enter a valid customer name.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        CusGetOwnInfoDatabase database = new CusGetOwnInfoDatabase();
+        List<CusOwnDataModel> customerList = database.getCustomerData(id);
+
+        if (!customerList.isEmpty()) {
+            // Display customer data in the cusTable
+            dtm = (DefaultTableModel) cusTable.getModel();
+            dtm.setRowCount(0);
+
+            for (CusOwnDataModel customer : customerList) {
+                String username = customer.getUsername();
+                String fname = customer.getFname();
+                String lname = customer.getLname();
+                String email = customer.getEmail();
+                String phone = customer.getPhone();
+                String password = customer.getPassword();
+
+                Object[] rowData = {username, fname, lname, email, phone, password};
+                dtm.addRow(rowData);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No customer data found for the given ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnFetchActionPerformed
+
+    private void txtUusernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUusernameFocusGained
+        if (txtUusername.getText().equals("Registered Username:")){
+            txtUusername.setText("");
+            txtUusername.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtUusernameFocusGained
+
+    private void txtUusernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUusernameFocusLost
+        if (txtUusername.getText().equals("")){
+            txtUusername.setText("Registered Username:");
+            txtUusername.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtUusernameFocusLost
+
+    private void txtUfnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUfnameFocusGained
+        if (txtUfname.getText().equals("New First name:")){
+            txtUfname.setText("");
+            txtUfname.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtUfnameFocusGained
+
+    private void txtUfnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUfnameFocusLost
+        if (txtUfname.getText().equals("")){
+            txtUfname.setText("New First name:");
+            txtUfname.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtUfnameFocusLost
+
+    private void txtUemailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUemailFocusGained
+        if (txtUemail.getText().equals("New Email:")){
+            txtUemail.setText("");
+            txtUemail.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtUemailFocusGained
+
+    private void txtUemailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUemailFocusLost
+        if (txtUemail.getText().equals("")){
+            txtUemail.setText("New Email:");
+            txtUemail.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtUemailFocusLost
+
+    private void txtUlnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUlnameFocusGained
+        if (txtUlname.getText().equals("New Last name:")){
+            txtUlname.setText("");
+            txtUlname.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtUlnameFocusGained
+
+    private void txtUlnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUlnameFocusLost
+        if (txtUlname.getText().equals("")){
+            txtUlname.setText("New Last name:");
+            txtUlname.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtUlnameFocusLost
+
+    private void txtUphoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUphoneFocusGained
+        if (txtUphone.getText().equals("New Phone Number:")){
+            txtUphone.setText("");
+            txtUphone.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtUphoneFocusGained
+
+    private void txtUphoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUphoneFocusLost
+        if (txtUphone.getText().equals("")){
+            txtUphone.setText("New Phone Number:");
+            txtUphone.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtUphoneFocusLost
+
+    private void txtUpasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUpasswordFocusGained
+        if (txtUpassword.getText().equals("New password:")){
+            txtUpassword.setText("");
+            txtUpassword.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtUpasswordFocusGained
+
+    private void txtUpasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUpasswordFocusLost
+        if (txtUpassword.getText().equals("")){
+            txtUpassword.setText("New password:");
+            txtUpassword.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtUpasswordFocusLost
+
+    private void txtdeleteidFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdeleteidFocusGained
+        if (txtdeleteid.getText().equals("Username: ")){
+            txtdeleteid.setText("");
+            txtdeleteid.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txtdeleteidFocusGained
+
+    private void txtdeleteidFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdeleteidFocusLost
+        if (txtdeleteid.getText().equals("")){
+            txtdeleteid.setText("Username: ");
+            txtdeleteid.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtdeleteidFocusLost
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
     
-    // actionListener
+    // cus-Update Model
+    public CusUpdateSelfModel getCdata(){
+        String txtusername = txtUusername.getText();
+        String txtfname = txtUfname.getText();
+        String txtlname = txtUlname.getText();
+        String txtemail = txtUemail.getText();
+        String txtphone = txtUphone.getText();
+        String txtpassword = txtUpassword.getText();
+        
+        model1 = new CusUpdateSelfModel(txtusername, txtfname, txtlname, txtemail, txtphone, txtpassword);
+        return model1;
+    }
+    
+        // actionListener
     public void addOrderButtonListener(ActionListener listener) {
         btnAddOrder.addActionListener(listener);
     }
     
     public void AddDeleteButtonLIstener(ActionListener listener){
         btnDeleteOrder.addActionListener(listener);
+    }
+    
+    public void AddSelfDeleteListener(ActionListener delete){
+        btnDeleteId.addActionListener(delete);
     }
     
     // buttons action
@@ -645,9 +878,17 @@ public class customerDashboard extends javax.swing.JFrame {
         return btnDeleteOrder;
     }
     
+    public JButton getDeleteButton(){
+        return btnDeleteId;
+    }
+    
     // Sending Tabledata
     public JTable getOrderTable (){
         return Ordertable;
+    }
+    
+    public JTable getCusTable(){
+        return cusTable;
     }
     
     // clear fields
@@ -655,6 +896,15 @@ public class customerDashboard extends javax.swing.JFrame {
         txtcusername.setText("");
         txtSusername.setText("");
         txtpid.setText("");
+    }
+    
+    public void ClearMeData(){
+        txtUusername.setText("");
+        txtUfname.setText("");
+        txtUlname.setText("");
+        txtUemail.setText("");
+        txtUphone.setText("");
+        txtUpassword.setText("");
     }
     // Messages
     public void displayErrorMessage(String message) {
@@ -706,14 +956,17 @@ public class customerDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Ordertable;
     private javax.swing.JButton btnAddOrder;
+    private javax.swing.JButton btnDeleteId;
     private javax.swing.JButton btnDeleteOrder;
+    private javax.swing.JButton btnFetch;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnproductview;
     private javax.swing.JButton btnvieworder;
     private javax.swing.JTable cproducttable;
+    private javax.swing.JTable cusTable;
     private javax.swing.JPanel detailPanel;
     private javax.swing.JPanel itemPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -724,7 +977,6 @@ public class customerDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable producttable1;
     private javax.swing.JPanel profilePanel;
     private javax.swing.JTextField txtSusername;
     private javax.swing.JTextField txtUemail;
@@ -739,4 +991,8 @@ public class customerDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField txtpid;
     // End of variables declaration//GEN-END:variables
 
+    // actionListener
+    public void AddUpdateButtonListener(ActionListener listener) {
+        btnUpdate.addActionListener(listener);
+    }
 }
