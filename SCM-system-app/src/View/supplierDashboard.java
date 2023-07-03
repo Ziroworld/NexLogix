@@ -1034,11 +1034,19 @@ public class supplierDashboard extends javax.swing.JFrame {
         txtUphone.setText("");
         txtUpassword.setText("");
     }
+    
+     public void clearAddField (){
+        txtproductname.setText("");
+        txtproductprice.setText("");
+        txtsuppliername.setText("");
+    } 
+     
     public void clearFields3(){
         txtPid.setText("");
         txtproductname.setText("");
         txtproductprice.setText("");
     }
+    
     public void clearFields2(){
         txtCheck.setText("");
     }

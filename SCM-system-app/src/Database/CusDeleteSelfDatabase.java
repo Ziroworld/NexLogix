@@ -8,7 +8,7 @@ import java.sql.*;
 public class CusDeleteSelfDatabase {
     
     @SuppressWarnings("CallToPrintStackTrace")
-    public boolean checkCustomer(int username) {
+    public boolean checkCustomer(String username) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -17,7 +17,7 @@ public class CusDeleteSelfDatabase {
             conn = getConnection.dbConnect();
             String sql = "SELECT * FROM customer WHERE username = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, username);
+            stmt.setString(1, username);
             rs = stmt.executeQuery();
             return rs.next(); // Returns true if customer exists, false otherwise
         } catch (SQLException e) {
@@ -30,7 +30,7 @@ public class CusDeleteSelfDatabase {
     }
 
     @SuppressWarnings("CallToPrintStackTrace")
-    public boolean deleteCustomer(int username) {
+    public boolean deleteCustomer(String username) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -38,7 +38,7 @@ public class CusDeleteSelfDatabase {
             conn = getConnection.dbConnect();
             String sql = "DELETE FROM customer WHERE username = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, username);
+            stmt.setString(1, username);
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0; // Returns true if rows are affected, false otherwise
         } catch (SQLException e) {
