@@ -722,6 +722,12 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnSdelete">
                       <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="cc" green="99" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Ubuntu Mono" size="15" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Delete user"/>
                       </Properties>
                     </Component>
@@ -756,7 +762,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="31" max="32767" attributes="0"/>
+                          <EmptySpace pref="30" max="32767" attributes="0"/>
                           <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
@@ -779,7 +785,7 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="btnPupdate" alignment="0" max="32767" attributes="0"/>
                                   <Component id="btnPview" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="btnPdelteid" max="32767" attributes="0"/>
+                                  <Component id="btnPdelete" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -808,7 +814,7 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnPdelteid" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="btnPdelete" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="txtproductprice" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
@@ -917,8 +923,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPupdateActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnPdelteid">
+                    <Component class="javax.swing.JButton" name="btnPdelete">
                       <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="cc" green="99" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Ubuntu Mono" size="18" style="0"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Delete user"/>
                       </Properties>
                     </Component>
