@@ -30,7 +30,7 @@ public class CusDeleteSelfController {
             if (e.getSource() == view.getDeleteButton()){
                 int selectedRow = view.getCusTable().getSelectedRow();
                 if (selectedRow != -1) {
-                    int username = (int) view.getCusTable().getValueAt(selectedRow, 0);
+                    String username = (String) view.getCusTable().getValueAt(selectedRow, 0);
                     deleteProfile(username);
                 } else {
                     showMessage("Please Select a row.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -40,7 +40,7 @@ public class CusDeleteSelfController {
     }
     
     //deleting profile
-    public void deleteProfile(int username){
+    public void deleteProfile(String username){
         database = new CusDeleteSelfDatabase();
         
         if (database.checkCustomer(username)) {

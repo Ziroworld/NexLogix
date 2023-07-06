@@ -1,7 +1,6 @@
 
 package Controller;
 import View.*;
-import Model.*;
 import Database.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,44 +8,51 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-
-public class SupplierAddProductController {
+/**
+ *
+ * @author rohan-manandhar
+ */
+public class AdminDeleteProductController {
     
-    private supplierDashboard View;
-    private SupplierAddProductModel Model;
-    private SupplierAddProductDatabase database;
-    Connection Conn;
+    private AdminDashboard view;
+    private AdminDeleteProductDatabase database;
     
-    public SupplierAddProductController(supplierDashboard View)
-    {
-        this.View = View;
-        View.addProductListener(new supplierProductListener());
-        this.database = new SupplierAddProductDatabase();
+    public AdminDeleteProductController(AdminDashboard view){
+        this.view = view;
+        this.database = new AdminDeleteProductDatabase();
+        view.addDeleteProdListener(new ButtonListener());
     }
     
-    class supplierProductListener implements ActionListener
+    class ButtonListener implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e){
-            try
-            {
-                Model = View.getProduct();
-                if (database.validateSupplier(Model.getSuppliername())) {
-                    database.insertProductData(Model);
-                    View.clearAddField();
-                    showMessage("Product added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    showMessage("Invalid supplier name.", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            if (e.getSource() == view.getBtnDeleteProd()){
+                int selectedRow = view.getProductTable().getSelectedRow();
+                
+                if (selectedRow != 1 ){
+                    int pid = (int) view.getProductTable().getValueAt(selectedRow, 0);
+                    deleteProduct(pid);
+                }else {
+                    showMessage("Please select a row.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            catch (SQLException e1)
-            {
-                System.out.println(e1.getMessage());
+        }
+    }
+    
+    public void deleteProduct(int pid){
+        if (database.checkProduct(pid)) {
+            if (database.deleteProduct(pid)) {
+                showMessage("Product deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                showMessage("Failed to delete Product.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            showMessage("Product does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     

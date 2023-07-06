@@ -1,7 +1,6 @@
 
 package Controller;
 import View.*;
-import Model.*;
 import Database.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,47 +8,52 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-
-public class SupplierAddProductController {
+/**
+ *
+ * @author rohan-manandhar
+ */
+public class AdminDeleteSupController {
+    private AdminDashboard view;
+    private AdminDeleteSupDatabase database;
     
-    private supplierDashboard View;
-    private SupplierAddProductModel Model;
-    private SupplierAddProductDatabase database;
-    Connection Conn;
-    
-    public SupplierAddProductController(supplierDashboard View)
-    {
-        this.View = View;
-        View.addProductListener(new supplierProductListener());
-        this.database = new SupplierAddProductDatabase();
+    public AdminDeleteSupController (AdminDashboard view){
+        this.view = view;
+        view.addDeleteSupListener(new ButtonListener());
+        this.database = new AdminDeleteSupDatabase();
     }
     
-    class supplierProductListener implements ActionListener
+    class ButtonListener implements ActionListener 
     {
-        @Override
+        @Override 
         public void actionPerformed(ActionEvent e){
-            try
-            {
-                Model = View.getProduct();
-                if (database.validateSupplier(Model.getSuppliername())) {
-                    database.insertProductData(Model);
-                    View.clearAddField();
-                    showMessage("Product added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            if (e.getSource() == view.getBtnDeleteSup()) {
+                int selectedRow = view.getSupTable().getSelectedRow();
+
+                if (selectedRow != -1) {
+                    String username = (String) view.getSupTable().getValueAt(selectedRow, 0);
+                    deleteSupplier(username);
                 } else {
-                    showMessage("Invalid supplier name.", "Error", JOptionPane.ERROR_MESSAGE);
+                    showMessage("Please select a row.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-            catch (SQLException e1)
-            {
-                System.out.println(e1.getMessage());
             }
         }
     }
     
+    private void deleteSupplier(String username) {
+        if (database.checkSupplier(username)) {
+            if (database.deleteSupplier(username)) {
+                showMessage("Supplier deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                showMessage("Failed to delete supplier.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            showMessage("Supplier does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void showMessage(String message, String title, int messageType) {
         JDialog dialog = new JDialog((Frame) null, title, true);
         JOptionPane optionPane = new JOptionPane(message, messageType);
