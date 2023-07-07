@@ -1,23 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Model;
 
-/**
- *
- * @author rohan-manandhar
- */
 public class AdminCreateCustomerModel {
     private String username;
     private String fname;
     private String lname;
     private String email;
-    private int phone;
+    private String phone;
     private String password;
     
     // methode
-    public AdminCreateCustomerModel(String username, String fname, String lname, String email, int phone, String password )
+    public AdminCreateCustomerModel(String username, String fname, String lname, String email, String phone, String password )
     {
         this.username = username;
         this.fname = fname;
@@ -59,11 +52,11 @@ public class AdminCreateCustomerModel {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -74,6 +67,7 @@ public class AdminCreateCustomerModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
     
     
 }

@@ -23,12 +23,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     private adminCdeleteController D1;
     private AdminCreateSupController initCont;
     private AdminUpdateProductController initCont1;
-            
+    private final AdminDeleteSupController initCont2;
+    private final AdminDeleteProductController initCont3;
+    private String username1;
     /**
      * Creates new form adminDashboard
      */
     public AdminDashboard() {
         initComponents();
+        initCont2 = new AdminDeleteSupController(this);
+        initCont3 = new AdminDeleteProductController(this);
     }
 
     // sending data to model
@@ -38,7 +42,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         model = new AdminCdeleteModel(txtCdeleteid.getText());
         return model;
     }
-    
+    public void setUsername(String username) {
+        this.username1 = username;
+    }  
     // cusModel
     public AdminCreateCustomerModel getCUser()
     {     
@@ -130,7 +136,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         txtproductname = new javax.swing.JTextField();
         txtproductprice = new javax.swing.JTextField();
         btnPupdate = new javax.swing.JButton();
-        btnPdelteid = new javax.swing.JButton();
+        btnPdelete = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -492,6 +498,8 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        btnSdelete.setBackground(new java.awt.Color(0, 153, 204));
+        btnSdelete.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         btnSdelete.setText("Delete user");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -631,7 +639,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        btnPdelteid.setText("Delete user");
+        btnPdelete.setBackground(new java.awt.Color(0, 153, 204));
+        btnPdelete.setFont(new java.awt.Font("Ubuntu Mono", 0, 18)); // NOI18N
+        btnPdelete.setText("Delete user");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -646,7 +656,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnPupdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPdelteid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPdelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtpid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
@@ -669,7 +679,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(txtproductname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPdelteid, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPdelete, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtproductprice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 52, Short.MAX_VALUE))
         );
@@ -686,7 +696,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -1073,6 +1083,32 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnPupdate.addActionListener(update);
     }
     
+    public void addDeleteSupListener (ActionListener delete){
+        btnSdelete.addActionListener(delete);
+    }
+    
+    public void addDeleteProdListener (ActionListener delete){
+        btnPdelete.addActionListener(delete);
+    }
+    
+    // sending the value 
+    
+    public JButton getBtnDeleteSup (){
+        return btnSdelete;
+    }
+    
+    public JButton getBtnDeleteProd(){
+        return btnPdelete;
+    }
+    
+    public JTable getSupTable(){
+        return suppliertable;
+    }
+    
+    public JTable getProductTable(){
+        return producttable;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1119,7 +1155,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnCdelete;
     private javax.swing.JButton btnCview;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnPdelteid;
+    private javax.swing.JButton btnPdelete;
     private javax.swing.JButton btnPupdate;
     private javax.swing.JButton btnPview;
     private javax.swing.JButton btnScreate;

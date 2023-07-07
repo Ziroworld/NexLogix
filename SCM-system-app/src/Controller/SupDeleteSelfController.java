@@ -30,7 +30,7 @@ public class SupDeleteSelfController {
             if (e.getSource() == view.getBtnDeleteProfile()){
                 int selectedRow = view.getProfileTable().getSelectedRow();
                 if (selectedRow != -1) {
-                    int username = (int) view.getProfileTable().getValueAt(selectedRow, 0);
+                    String username = (String) view.getProfileTable().getValueAt(selectedRow, 0);
                     deleteProfile(username);
                 } else {
                     showMessage("Please Select a row.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -39,7 +39,7 @@ public class SupDeleteSelfController {
         }
     }
     
-    public void deleteProfile(int username){
+    public void deleteProfile(String username){
         database = new SupDeleteSelfDatabase();
         
         if (database.checkSupplier(username)) {
