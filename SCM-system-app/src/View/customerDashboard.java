@@ -5,13 +5,17 @@ import Model.*;
 import Controller.*;
 import Database.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class customerDashboard extends javax.swing.JFrame {
     DefaultTableModel dtm;
+    CupdateFrame frame;
     CustomerOrderController controller;
     CustomerOrderModel model;
     CusUpdateSelfModel model1;
@@ -19,6 +23,7 @@ public class customerDashboard extends javax.swing.JFrame {
     CusUpdateSelfController controller2;
     private final CusDeleteSelfController controller3;
     
+    private String username1; // for passing the name;
     /**
      * Creates new form customerDashboard
      */
@@ -27,7 +32,9 @@ public class customerDashboard extends javax.swing.JFrame {
         controller1 = new CustomerDeleteOrderController(this);
         controller3 = new CusDeleteSelfController(this);
     }
-    
+    public void setUsername(String username) {
+        this.username1 = username;
+    }
     // Sending data
     public CustomerOrderModel getOrder(){
         String cusername = txtcusername.getText();
@@ -84,6 +91,7 @@ public class customerDashboard extends javax.swing.JFrame {
         btnvieworder = new javax.swing.JButton();
         txtousername = new javax.swing.JTextField();
         btnDeleteOrder = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
@@ -136,6 +144,11 @@ public class customerDashboard extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         jButton3.setText("Update username");
         jButton3.setBorder(null);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         txtUusername.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         txtUusername.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -477,6 +490,15 @@ public class customerDashboard extends javax.swing.JFrame {
         btnDeleteOrder.setText("Delete order");
         btnDeleteOrder.setBorder(null);
 
+        btnPrint.setBackground(new java.awt.Color(153, 153, 255));
+        btnPrint.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout detailPanelLayout = new javax.swing.GroupLayout(detailPanel);
         detailPanel.setLayout(detailPanelLayout);
         detailPanelLayout.setHorizontalGroup(
@@ -486,7 +508,9 @@ public class customerDashboard extends javax.swing.JFrame {
                 .addGroup(detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(detailPanelLayout.createSequentialGroup()
-                        .addComponent(btnDeleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnPrint, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDeleteOrder, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                         .addGap(27, 27, 27)
                         .addComponent(txtousername, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
@@ -498,7 +522,9 @@ public class customerDashboard extends javax.swing.JFrame {
             .addGroup(detailPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGap(33, 33, 33)
+                .addComponent(btnPrint)
+                .addGap(18, 18, 18)
                 .addGroup(detailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnvieworder, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtousername, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,7 +546,7 @@ public class customerDashboard extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(detailPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Oder detail", jPanel5);
@@ -842,6 +868,22 @@ public class customerDashboard extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Timer timer = new Timer(3000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            openUpdateFrame();
+            }
+        });
+
+        timer.setRepeats(false);
+        timer.start();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrintActionPerformed
     
     // cus-Update Model
     public CusUpdateSelfModel getCdata(){
@@ -960,6 +1002,7 @@ public class customerDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteOrder;
     private javax.swing.JButton btnFetch;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnproductview;
     private javax.swing.JButton btnvieworder;
@@ -994,5 +1037,16 @@ public class customerDashboard extends javax.swing.JFrame {
     // actionListener
     public void AddUpdateButtonListener(ActionListener listener) {
         btnUpdate.addActionListener(listener);
+    }
+    
+    private void openUpdateFrame() {
+        frame = new CupdateFrame();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                frame.dispose(); // Only close the update frame
+            }
+        });
+        frame.setVisible(true);
     }
 }

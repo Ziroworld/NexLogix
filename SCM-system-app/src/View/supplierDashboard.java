@@ -6,11 +6,18 @@ import Model.*;
 import Controller.*;
 import Database.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.print.*;
+import java.text.MessageFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+
 public class supplierDashboard extends javax.swing.JFrame {
+    SupdateFrame frame;
     DefaultTableModel dtm;
     SupplierAddProductModel Model;
     SupUpdateSelfModel callModel;
@@ -21,6 +28,7 @@ public class supplierDashboard extends javax.swing.JFrame {
     private SupUpdateProductController initCont;
     private final SupDeleteSelfController initCont1;
     
+    private String username1; // for passing the name
     /**
      * Creates new form supplierDashboard
      */
@@ -28,6 +36,9 @@ public class supplierDashboard extends javax.swing.JFrame {
         initComponents();
         controller = new SupDeleteProductController(this);
         initCont1 = new SupDeleteSelfController(this);
+    }
+    public void setUsername(String username) {
+        this.username1 = username;
     }
     
     // sending data to model 
@@ -86,6 +97,7 @@ public class supplierDashboard extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         txtPid = new javax.swing.JTextField();
+        btnPrint = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -208,6 +220,14 @@ public class supplierDashboard extends javax.swing.JFrame {
             }
         });
 
+        btnPrint.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -224,7 +244,8 @@ public class supplierDashboard extends javax.swing.JFrame {
                             .addComponent(btnProductView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDeleteProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnaddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtPid))
+                            .addComponent(txtPid)
+                            .addComponent(btnPrint, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtproductname, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,9 +289,11 @@ public class supplierDashboard extends javax.swing.JFrame {
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addGap(12, 12, 12)
                         .addComponent(btnDeleteProduct)
-                        .addGap(28, 28, 28))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPrint)
+                        .addContainerGap(15, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -287,7 +310,7 @@ public class supplierDashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(23, 23, 23))
         );
 
         jTabbedPane1.addTab("Products", jPanel4);
@@ -487,7 +510,14 @@ public class supplierDashboard extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(153, 153, 153));
+        jButton1.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         jButton1.setText("Update Username");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -897,6 +927,21 @@ public class supplierDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPidFocusLost
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Timer timer = new Timer(3000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            openUpdateFrame();
+        }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     // Add ActionListener
     public void addProductListener(ActionListener log)
     {
@@ -988,6 +1033,7 @@ public class supplierDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnDeleteProfile;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnProductView;
     private javax.swing.JButton btnSelfUpdate;
     private javax.swing.JButton btnSview;
@@ -1035,18 +1081,16 @@ public class supplierDashboard extends javax.swing.JFrame {
         txtUpassword.setText("");
     }
     
-     public void clearAddField (){
+    public void clearAddField (){
         txtproductname.setText("");
         txtproductprice.setText("");
         txtsuppliername.setText("");
-    } 
-     
+    }
     public void clearFields3(){
         txtPid.setText("");
         txtproductname.setText("");
         txtproductprice.setText("");
     }
-    
     public void clearFields2(){
         txtCheck.setText("");
     }
@@ -1054,4 +1098,18 @@ public class supplierDashboard extends javax.swing.JFrame {
     public void closeDash(){
         this.dispose();
     }
+    
+    private void openUpdateFrame() {
+        frame = new SupdateFrame();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                frame.dispose(); // Only close the update frame
+            }
+        });
+        frame.setVisible(true);
+    }
+    
+    
+
 }

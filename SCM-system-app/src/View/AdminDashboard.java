@@ -25,7 +25,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private AdminUpdateProductController initCont1;
     private final AdminDeleteSupController initCont2;
     private final AdminDeleteProductController initCont3;
-            
+    private String username1;
     /**
      * Creates new form adminDashboard
      */
@@ -42,7 +42,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         model = new AdminCdeleteModel(txtCdeleteid.getText());
         return model;
     }
-    
+    public void setUsername(String username) {
+        this.username1 = username;
+    }  
     // cusModel
     public AdminCreateCustomerModel getCUser()
     {     
