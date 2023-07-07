@@ -317,4 +317,14 @@ public class CusRegistration extends javax.swing.JFrame {
     public void setMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
+    public void Clearme(){
+        txtusername.setText("");
+        txtCpassword.setText("");
+        txtemail.setText("");
+        txtfname.setText("");
+        txtlname.setText("");
+        txtpassword.setText("");
+        txtphone.setText("");
+        
+    }
 }
