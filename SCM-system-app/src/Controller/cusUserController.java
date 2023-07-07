@@ -1,59 +1,57 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 import Model.*;
 import View.*;
 import Database.*;
-import java.sql.*;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
 /**
  *
  * @author rohan-manandhar
  */
 public class cusUserController {
-    
-    private final CusRegistration View;
-    private cusRegModel Model;
-    Connection conn;
-    
-    public cusUserController(CusRegistration View)
-    {
-        this.View = View;
-        View.addcRegisterListner(new cusRegisterListener());
+private final CusRegistration view;
+    private cusRegModel model;
+    private Connection conn;
+
+    public cusUserController(CusRegistration view) {
+        this.view = view;
+        this.view.addcRegisterListner(new cusRegisterListener());
     }
-    
-    class cusRegisterListener implements ActionListener
-    {
+
+    class cusRegisterListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e)
-        {
+        public void actionPerformed(ActionEvent e) {
             try {
-                Model = View.getUser();
-                if (validateUserData(Model)) {
-                    if (checkUser(Model)) {
-                        View.setMessage("Username already exists.");
-                    } else {
-                        if (insertUser(Model)) {
-                            View.setMessage("User registered successfully.");
-                            
+                model = view.getUser();
+                if (validateUserData(model)) {
+                    if (checkUser(model)) {
+                        showMessage("Username already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }else {
+                        if (hasSpaceInUsername(model.getUsername())) {
+                            showMessage("Username cannot contain spaces.", "Error", JOptionPane.ERROR_MESSAGE);
                         } else {
-                            View.setMessage("Failed to register user.");
+                            if (insertUser(model)) {
+                                showMessage("User registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                view.Clearme();
+                                view.openLogin();
+                            } else {
+                                showMessage("Failed to register user.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
                     }
-                } else {
-                    View.setMessage("Invalid user data.");
                 }
             } catch (Exception e1) {
-                View.setMessage("Invalid user data.");
+                showMessage("Invalid user data.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
     }
-    
+
     public boolean validateUserData(cusRegModel user) {
-        // Perform validation checks on user data
         String username = user.getUsername();
         String fname = user.getFname();
         String lname = user.getLname();
@@ -61,29 +59,31 @@ public class cusUserController {
         int phone = user.getPhone();
         String password = user.getPassword();
         String cpassword = user.getCpassword();
-        
-        if (username.isEmpty() || fname.isEmpty() || lname.isEmpty() || 
-            email.isEmpty() || password.isEmpty() || cpassword.isEmpty()) {
-            View.setMessage("Some Field are missing");
+
+        if (username.isEmpty() || fname.isEmpty() || lname.isEmpty() || email.isEmpty() || password.isEmpty() || cpassword.isEmpty()) {
+            showMessage("All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
             return false; // Empty fields not allowed
         }
-        
+
         if (!emailIsValid(email)) {
-            View.setMessage("Invalid email, Duplication found !!");
-            return false; // Invalid email format
+            showMessage("Invalid email format or already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; // Invalid email format or duplicate email
         }
-        
+
+        if (password.length() < 8) {
+            showMessage("Password must be at least 8 characters long.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; // Password length should be at least 8 characters
+        }
+
         if (!password.equals(cpassword)) {
-            View.setMessage("Password and confirm-Password doesnot match !!!");
+            showMessage("Password and confirm password do not match.", "Error", JOptionPane.ERROR_MESSAGE);
             return false; // Passwords do not match
         }
-        
+
         return true; // User data is valid
     }
-    
-    
-    public boolean checkUser(cusRegModel user) throws Exception
-    {
+
+    public boolean checkUser(cusRegModel user) {
         String username = user.getUsername();
         conn = null;
         PreparedStatement stmt = null;
@@ -99,26 +99,13 @@ public class cusUserController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            closeResources(rs, stmt, conn);
         }
 
         return false;
     }
-    
-    // inserting the data
-    public boolean insertUser(cusRegModel user) throws Exception {
+
+    public boolean insertUser(cusRegModel user) {
         String username = user.getUsername();
         String fname = user.getFname();
         String lname = user.getLname();
@@ -143,29 +130,17 @@ public class cusUserController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            closeResources(null, stmt, conn);
         }
 
         return false;
     }
-    
-    
+
     public boolean emailIsValid(String email) {
-        // Implement email validation logic
         if (email.isEmpty()) {
             return false; // Empty email not allowed
         }
 
-        // Check if the email format is valid using a regular expression
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         if (!email.matches(emailRegex)) {
             return false; // Invalid email format
@@ -185,22 +160,58 @@ public class cusUserController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            closeResources(rs, stmt, conn);
         }
 
-        return false; // Placeholder - assumes all emails are valid
+        return false;
+    }
+
+    private void closeResources(ResultSet rs, PreparedStatement stmt, Connection conn) {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void showMessage(String message, String title, int messageType) {
+        JDialog dialog = new JDialog((Frame) null, title, true);
+        JOptionPane optionPane = new JOptionPane(message, messageType);
+        dialog.setContentPane(optionPane);
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        dialog.setBackground(Color.DARK_GRAY);
+        dialog.pack();
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int dialogWidth = dialog.getWidth();
+        int dialogHeight = dialog.getHeight();
+        int dialogX = (screenSize.width - dialogWidth) / 2;
+        int dialogY = (screenSize.height - dialogHeight) / 2;
+        dialog.setLocation(dialogX, dialogY);
+
+        Timer timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose();
+            }
+        });
+
+        timer.setRepeats(false);
+        timer.start();
+
+        dialog.setVisible(true);
+    }
+    
+    public boolean hasSpaceInUsername(String username) {
+        return username.contains(" ");
     }
 }
 

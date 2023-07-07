@@ -245,7 +245,11 @@ public class CusRegistration extends javax.swing.JFrame {
     {
         btnregister.addActionListener(log);
     }
-   
+    public void openLogin(){
+        this.dispose();
+        Loginwin l2 = new Loginwin();
+        l2.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */

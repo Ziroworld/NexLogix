@@ -4,10 +4,7 @@ import Controller.*;
 import Model.*;
 import java.awt.event.*;
 import javax.swing.*;
-/**
- *
- * @author rohan-manandhar
- */
+
 public class supRegistration extends javax.swing.JFrame {
     supRegModel Model;
     private supUserController supplier;
@@ -240,7 +237,12 @@ public class supRegistration extends javax.swing.JFrame {
     {
         btnRegister.addActionListener(log);
     }
-   
+    
+    public void openLogin(){
+        this.dispose();
+        Loginwin l2 = new Loginwin();
+        l2.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -299,13 +301,8 @@ public class supRegistration extends javax.swing.JFrame {
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 
-
-//    public void setMessage(String message) {
-//        JOptionPane.showMessageDialog(this, message);
-//    }
-
     public void setMessage (String message) {
         JOptionPane.showMessageDialog(this, message);
     }
-  
+    
 }
