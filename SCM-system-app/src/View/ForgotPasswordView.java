@@ -1,22 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
+import Model.*;
+import Controller.*;
+import java.awt.event.ActionListener;
 
-/**
- *
- * @author rohan-manandhar
- */
 public class ForgotPasswordView extends javax.swing.JFrame {
-
+    ForgotPasswordModel initmodel;
+    ForgotpasswordController initCont;
+    
+    public ForgotPasswordModel getData (){
+        String username = txtUsername.getText();
+        String newpassword = txtNewpassword.getText();
+        String confirmpassword = txtConfirmpassword.getText();
+        
+        initmodel = new ForgotPasswordModel(username, newpassword, confirmpassword);
+        return initmodel;
+    }
+    
     /**
      * Creates new form ForgotPasswordView
      */
     public ForgotPasswordView() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,10 +44,11 @@ public class ForgotPasswordView extends javax.swing.JFrame {
         txtConfirmpassword = new javax.swing.JTextField();
         btnForgotpassword = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(58, 110, 162));
 
+        jLabel1.setFont(new java.awt.Font("Noto Sans Mono CJK HK", 1, 24)); // NOI18N
         jLabel1.setText("Recover your password");
 
         jLabel2.setText("Username");
@@ -49,7 +57,13 @@ public class ForgotPasswordView extends javax.swing.JFrame {
 
         jLabel4.setText("Confirm password");
 
+        btnForgotpassword.setBackground(new java.awt.Color(153, 153, 153));
         btnForgotpassword.setText("Reset Password");
+        btnForgotpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForgotpasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -68,18 +82,19 @@ public class ForgotPasswordView extends javax.swing.JFrame {
                             .addComponent(txtNewpassword)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(82, 82, 82)
-                        .addComponent(btnForgotpassword))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel1)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addComponent(btnForgotpassword)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 38, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,9 +116,9 @@ public class ForgotPasswordView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(69, 69, 69)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +132,9 @@ public class ForgotPasswordView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,8 +142,20 @@ public class ForgotPasswordView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnForgotpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgotpasswordActionPerformed
+        if (initCont == null ){
+            initCont = new ForgotpasswordController(this);
+        }
+    }//GEN-LAST:event_btnForgotpasswordActionPerformed
+    
+    public void addForgotListener( ActionListener Forgot){
+        btnForgotpassword.removeActionListener(Forgot);
+        btnForgotpassword.addActionListener(Forgot);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -175,4 +204,10 @@ public class ForgotPasswordView extends javax.swing.JFrame {
     private javax.swing.JTextField txtNewpassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    public void clearFields(){
+        txtUsername.setText("");
+        txtNewpassword.setText("");
+        txtConfirmpassword.setText("");
+    }
 }
