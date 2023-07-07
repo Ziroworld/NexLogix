@@ -227,10 +227,6 @@ public class CusRegistration extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    // Event listener for submit button
-//    public void addRegisterButtonListener(ActionListener listener) {
-//        btnregister.addActionListener(listener);
-//    }
     private void btnregisterActionPerformed(java.awt.event.ActionEvent evt) {                                            
 //GEN-FIRST:event_btnRegisterActionPerformed
        if (initCont == null){
@@ -240,10 +236,9 @@ public class CusRegistration extends javax.swing.JFrame {
 //GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigninActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
         Loginwin l1 = new Loginwin();
         l1.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btnSigninActionPerformed
                                               
     public void addcRegisterListner(ActionListener log)

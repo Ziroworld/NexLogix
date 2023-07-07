@@ -10,6 +10,7 @@ import javax.swing.*;
  */
 public class supRegistration extends javax.swing.JFrame {
     supRegModel Model;
+    private supUserController supplier;
     /**
      * Creates new form supRegistration
      */
@@ -19,7 +20,14 @@ public class supRegistration extends javax.swing.JFrame {
     
     public supRegModel getUser()
     {
-        Model = new supRegModel(txtusername.getText(), txtcompanyname.getText(), txtemail.getText(),Integer.parseInt(txtphone.getText()), txtpassword.getText(), txtCpassword.getText());
+        String username = txtusername.getText();
+        String companyName = txtcompanyname.getText();
+        String email = txtemail.getText();
+        int phone = Integer.parseInt(txtphone.getText());
+        String password = txtpassword.getText();
+        String confirmPassword = txtCpassword.getText();
+
+        Model = new supRegModel(username, companyName, email, phone, password, confirmPassword);
         return Model;
     }
 
@@ -207,22 +215,27 @@ public class supRegistration extends javax.swing.JFrame {
 
     private void loginwinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginwinActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         Loginwin l2 = new Loginwin();
         l2.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_loginwinActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
-        supUserController supplier = new supUserController(this);
-        clearme();
+        if (supplier == null){
+            supplier = new supUserController(this);
+        }
     }//GEN-LAST:event_btnRegisterActionPerformed
     
-    // crealring th data in boxes
+    // crealring the data in boxes
     public void clearme()
     {
-        // for later part
+        txtusername.setText("");
+        txtcompanyname.setText("");
+        txtemail.setText("");
+        txtphone.setText("");
+        txtCpassword.setText("");
     }
+    
     public void addsRegisterListener(ActionListener log)
     {
         btnRegister.addActionListener(log);
@@ -294,6 +307,5 @@ public class supRegistration extends javax.swing.JFrame {
     public void setMessage (String message) {
         JOptionPane.showMessageDialog(this, message);
     }
-
   
 }

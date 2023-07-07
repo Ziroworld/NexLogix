@@ -1,16 +1,48 @@
 
 package View;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.Timer;
+import Model.*;
+import Controller.*;
 
 public class CupdateFrame extends javax.swing.JFrame {
-
+    CusUpdateUsernameModel initmodel;
+    CusUpdateUsernameController initCont;
+    
     /**
      * Creates new form CupdateFrame
      */
     public CupdateFrame() {
         initComponents();
+            addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Timer timer = new Timer(3000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dispose();
+                    }
+                });
+
+                timer.setRepeats(false);
+                timer.start();
+            }
+        });
     }
 
+    public CusUpdateUsernameModel getData(){
+        String oldusername = txtColdusername.getText();
+        String newusername = txtCnewusername.getText();
+        String password = txtCpassword.getText();
+        
+        initmodel = new CusUpdateUsernameModel(oldusername, newusername, password);
+        return initmodel;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -22,33 +54,33 @@ public class CupdateFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtColdusername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtCnewusername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtCpassword = new javax.swing.JTextField();
+        btnCupdate = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         messagebox = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Update Username");
         setResizable(false);
         setType(java.awt.Window.Type.UTILITY);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTextField1.setFont(new java.awt.Font("Rekha", 0, 15)); // NOI18N
-        jTextField1.setBorder(null);
+        txtColdusername.setFont(new java.awt.Font("Rekha", 0, 15)); // NOI18N
+        txtColdusername.setBorder(null);
 
         jLabel1.setFont(new java.awt.Font("Rasa", 0, 18)); // NOI18N
         jLabel1.setText("Old username");
 
-        jTextField2.setFont(new java.awt.Font("Rekha", 0, 15)); // NOI18N
-        jTextField2.setBorder(null);
+        txtCnewusername.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        txtCnewusername.setBorder(null);
 
         jLabel2.setFont(new java.awt.Font("Rasa", 0, 18)); // NOI18N
         jLabel2.setText("New Username");
@@ -56,14 +88,19 @@ public class CupdateFrame extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Rasa", 0, 18)); // NOI18N
         jLabel3.setText("Password");
 
-        jTextField3.setFont(new java.awt.Font("Rekha", 0, 15)); // NOI18N
-        jTextField3.setBorder(null);
+        txtCpassword.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
+        txtCpassword.setBorder(null);
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 153));
-        jButton1.setFont(new java.awt.Font("Rasa SemiBold", 0, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 51, 51));
-        jButton1.setText("Update");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCupdate.setBackground(new java.awt.Color(153, 153, 153));
+        btnCupdate.setFont(new java.awt.Font("Rasa SemiBold", 0, 15)); // NOI18N
+        btnCupdate.setForeground(new java.awt.Color(0, 51, 51));
+        btnCupdate.setText("Update");
+        btnCupdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCupdateActionPerformed(evt);
+            }
+        });
 
         messagebox.setFont(new java.awt.Font("Rekha", 0, 15)); // NOI18N
 
@@ -76,20 +113,20 @@ public class CupdateFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
+                            .addComponent(txtColdusername)
+                            .addComponent(txtCnewusername)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField3)
+                            .addComponent(txtCpassword)
                             .addComponent(jSeparator1)
                             .addComponent(jSeparator2)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel1)
+                            .addComponent(btnCupdate, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(messagebox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addComponent(messagebox, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,23 +136,23 @@ public class CupdateFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtColdusername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCnewusername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -126,30 +163,36 @@ public class CupdateFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(40, 40, 40)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupdateActionPerformed
+        if ( initCont == null){
+            initCont = new CusUpdateUsernameController(this);
+        }
+    }//GEN-LAST:event_btnCupdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,7 +231,7 @@ public class CupdateFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCupdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -197,9 +240,21 @@ public class CupdateFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel messagebox;
+    private javax.swing.JTextField txtCnewusername;
+    private javax.swing.JTextField txtColdusername;
+    private javax.swing.JTextField txtCpassword;
     // End of variables declaration//GEN-END:variables
+
+    
+    public void addButtonListener(ActionListener update){
+        btnCupdate.removeActionListener(update);
+        btnCupdate.addActionListener(update);
+    }
+    
+    public void clearMeData(){
+        txtColdusername.setText("");
+        txtCnewusername.setText("");
+        txtCpassword.setText("");
+    }
 }
