@@ -16,7 +16,9 @@ public class cusUserController {
 private final CusRegistration view;
     private cusRegModel model;
     private Connection conn;
-
+    private boolean result;
+    public boolean testdata;
+    
     public cusUserController(CusRegistration view) {
         this.view = view;
         this.view.addcRegisterListner(new cusRegisterListener());
@@ -26,6 +28,7 @@ private final CusRegistration view;
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                result = false;
                 model = view.getUser();
                 if (validateUserData(model)) {
                     if (checkUser(model)) {
@@ -35,6 +38,7 @@ private final CusRegistration view;
                             showMessage("Username cannot contain spaces.", "Error", JOptionPane.ERROR_MESSAGE);
                         } else {
                             if (insertUser(model)) {
+                                result = true;
                                 showMessage("User registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                                 view.Clearme();
                                 view.openLogin();
@@ -50,7 +54,11 @@ private final CusRegistration view;
 
         }
     }
-
+    
+    public boolean testdata(){
+        return result;
+    }
+    
     public boolean validateUserData(cusRegModel user) {
         String username = user.getUsername();
         String fname = user.getFname();
