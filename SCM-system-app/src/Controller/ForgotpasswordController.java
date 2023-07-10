@@ -18,6 +18,8 @@ public class ForgotpasswordController {
     private ForgotPasswordView view;
     private ForgotPasswordModel model;
     private ForgotPasswordDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public ForgotpasswordController(ForgotPasswordView view){
         this.view = view;
@@ -30,10 +32,12 @@ public class ForgotpasswordController {
         @Override
         public void actionPerformed (ActionEvent e){
             try{
+                result = false;
                 model = view.getData();
                 if (validateFields(model)) {
                     if (database.checkUser(model.getUsername())) {
                         if (database.passwordUpdated(model)) {
+                            result = true;
                             showMessage("Password updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                             view.clearFields();
                         } else {
@@ -48,6 +52,10 @@ public class ForgotpasswordController {
                 e1.getMessage();
             }
         }
+    }
+    
+    public boolean testData(){
+        return result;
     }
     
     private boolean validateFields(ForgotPasswordModel model) {

@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 public class SupDeleteProductController {
     private final supplierDashboard View;
     private SupDeleteProductModel model;
+    private boolean result;
+    public boolean testdata;
     
     public SupDeleteProductController(supplierDashboard View){
         this.View = View;
@@ -40,11 +42,13 @@ public class SupDeleteProductController {
     
     // Main deletion func for deleting product
     public void deleteProduct(int pid) {
+        result = false;
         model = new SupDeleteProductModel();
         System.out.println("Deleting product with PID: " + pid);
         if (model.checkProductExist(pid)) {
             System.out.println("Product found. Deleting...");
             if (model.deleteProduct(pid)) {
+                result = true;
                 System.out.println("Product deleted successfully.");
                 View.displaySuccessMessage("Product deleted successfully.");
             } else {
@@ -56,4 +60,9 @@ public class SupDeleteProductController {
             View.displayErrorMessage("Product not found.");
         }
     }
+    
+    public boolean testdata(){
+        return result;
+    }
+    
 }

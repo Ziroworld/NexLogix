@@ -939,6 +939,16 @@ public class supplierDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        MessageFormat header = new MessageFormat("::: PRODUCT DATA... :::");
+        MessageFormat footer = new MessageFormat("Nexlogix, A Powerful Supply Chain Management System");
+        try{
+            producttable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+            
+        }
+        catch (PrinterException e){
+            JOptionPane.showMessageDialog(null,"Error! Cannot Print"+e.getMessage());
+            
+        }
         
     }//GEN-LAST:event_btnPrintActionPerformed
 

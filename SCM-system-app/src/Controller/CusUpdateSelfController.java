@@ -9,10 +9,12 @@ import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 public class CusUpdateSelfController {
-    customerDashboard view;
-    CusUpdateSelfModel model;
-    CusUpdateSelfDatabase database;
-
+    private final customerDashboard view;
+    private CusUpdateSelfModel model;
+    private final CusUpdateSelfDatabase database;
+    private boolean result;
+    public boolean testdata;
+    
     public CusUpdateSelfController(customerDashboard view){
         this.view = view;
         view.AddUpdateButtonListener(new ButtonListener());
@@ -25,11 +27,13 @@ public class CusUpdateSelfController {
         public void actionPerformed(ActionEvent e){
             try
             {
+                result = false;
                 model = view.getCdata();
                 String username = model.getTxtusername();
                 System.out.println(username);
                 
                 if (updateCustomer()) {
+                    result = true; 
                     view.ClearMeData();
                     JOptionPane.showMessageDialog(null, "Customer data updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -41,6 +45,10 @@ public class CusUpdateSelfController {
                 e1.getMessage();
             }
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
     
     public boolean updateCustomer() {

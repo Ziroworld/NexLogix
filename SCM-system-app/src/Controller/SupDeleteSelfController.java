@@ -15,11 +15,14 @@ import javax.swing.Timer;
 public class SupDeleteSelfController {
     private final supplierDashboard view;
     private SupDeleteSelfDatabase database;
-    Loginwin initLogin;
+    private Loginwin initLogin;
+    private boolean result;
+    public boolean testdata;
     
     public SupDeleteSelfController(supplierDashboard view){
         this.view = view;
         view.addDeleteButtonListener(new ButtonListener());
+        this.database = new SupDeleteSelfDatabase();
     }
     
     class ButtonListener implements ActionListener
@@ -40,10 +43,10 @@ public class SupDeleteSelfController {
     }
     
     public void deleteProfile(String username){
-        database = new SupDeleteSelfDatabase();
-        
+        result = false;
         if (database.checkSupplier(username)) {
             if (database.deleteSupplier(username)) {
+                result = true;
                 showMessage("Profile deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 view.closeDash();
                 initLogin = new Loginwin();
@@ -56,6 +59,9 @@ public class SupDeleteSelfController {
         }
     }
     
+    public boolean testdata(){
+        return result;
+    }
     
     private void showMessage(String message, String title, int messageType) {
         JDialog dialog = new JDialog((Frame) null, title, true);

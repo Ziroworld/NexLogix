@@ -8,10 +8,11 @@ import Database.*;
 import javax.swing.JOptionPane;
 
 public class adminCdeleteController {
-    AdminCdeleteModel Model;
-    AdminDashboard View;
-    Connection conn;
-    
+    private AdminCdeleteModel Model;
+    private final AdminDashboard View;
+    private Connection conn;
+    private boolean result;
+    public boolean testdata;
 
     public adminCdeleteController(AdminDashboard View) {
         this.View = View;
@@ -24,8 +25,10 @@ public class adminCdeleteController {
         {
             try
             {
+                result = false;
                 Model = View.getUser();
                 if(deleteCustomer(Model)){
+                    result = true;
                     JOptionPane.showMessageDialog(View, "Customer deleted successfully.");
                 }else{
                     JOptionPane.showMessageDialog(View, "Invalid ID!!");
@@ -51,5 +54,9 @@ public class adminCdeleteController {
             }
             return false;
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
 }

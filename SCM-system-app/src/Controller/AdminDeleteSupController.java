@@ -16,8 +16,10 @@ import javax.swing.Timer;
  * @author rohan-manandhar
  */
 public class AdminDeleteSupController {
-    private AdminDashboard view;
-    private AdminDeleteSupDatabase database;
+    private final AdminDashboard view;
+    private final AdminDeleteSupDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public AdminDeleteSupController (AdminDashboard view){
         this.view = view;
@@ -43,8 +45,10 @@ public class AdminDeleteSupController {
     }
     
     private void deleteSupplier(String username) {
+        result = false;
         if (database.checkSupplier(username)) {
             if (database.deleteSupplier(username)) {
+                result = true;
                 showMessage("Supplier deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 showMessage("Failed to delete supplier.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -53,7 +57,11 @@ public class AdminDeleteSupController {
             showMessage("Supplier does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    public boolean testdata(){
+        return result;
+    }
+    
     private void showMessage(String message, String title, int messageType) {
         JDialog dialog = new JDialog((Frame) null, title, true);
         JOptionPane optionPane = new JOptionPane(message, messageType);

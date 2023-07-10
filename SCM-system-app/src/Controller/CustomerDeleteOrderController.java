@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 public class CustomerDeleteOrderController {
     private customerDashboard view;
     private CustomerDeleteOrderModel model;
+    private boolean result;
+    public boolean testdata;
     
     public CustomerDeleteOrderController(customerDashboard view){
         this.view = view;
@@ -34,14 +36,20 @@ public class CustomerDeleteOrderController {
             }
         }
         
+    public boolean testdata(){
+        return result;
+    }
+        
         public void deleteOrder(int orderid){
+            result = false;
             model = new CustomerDeleteOrderModel();
             if (model.checkOrder(orderid)) {
-            if (model.deleteOrder(orderid)) {
-                view.displaySuccessMessage("Order deleted successfully.");
-            } else {
-                view.displayErrorMessage("Failed to delete order.");
-            }
+                if (model.deleteOrder(orderid)) {
+                    result = true;
+                    view.displaySuccessMessage("Order deleted successfully.");
+                } else {
+                    view.displayErrorMessage("Failed to delete order.");
+                }
             } else {
                 view.displayErrorMessage("Order not found.");
             }
