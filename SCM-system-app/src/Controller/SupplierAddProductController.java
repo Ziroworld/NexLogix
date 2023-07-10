@@ -16,10 +16,11 @@ import javax.swing.Timer;
 
 public class SupplierAddProductController {
     
-    private supplierDashboard View;
+    private final supplierDashboard View;
     private SupplierAddProductModel Model;
-    private SupplierAddProductDatabase database;
-    Connection Conn;
+    private final SupplierAddProductDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public SupplierAddProductController(supplierDashboard View)
     {
@@ -34,9 +35,11 @@ public class SupplierAddProductController {
         public void actionPerformed(ActionEvent e){
             try
             {
+                result = false;
                 Model = View.getProduct();
                 if (database.validateSupplier(Model.getSuppliername())) {
                     database.insertProductData(Model);
+                    result = true;
                     View.clearAddField();
                     showMessage("Product added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -48,6 +51,10 @@ public class SupplierAddProductController {
                 System.out.println(e1.getMessage());
             }
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
     
     private void showMessage(String message, String title, int messageType) {

@@ -17,6 +17,8 @@ public class SupUpdateProductController {
     private final supplierDashboard view;
     private SupUpdateProductModel model;
     private final SupUpdateProductDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public SupUpdateProductController(supplierDashboard view){
         this.view = view;
@@ -31,6 +33,7 @@ public class SupUpdateProductController {
         public void actionPerformed( ActionEvent e ){
             
             try{
+                result = false;
                 model = view.getProductData();
                 int pid = model.getPid();
                 System.out.println(pid);
@@ -38,6 +41,7 @@ public class SupUpdateProductController {
                 // Check if the product exists in the database
                 if (database.isProductExist(pid)) {
                     if (updateProduct()) {
+                        result = true;
                         view.clearFields3();
                         showMessage("Product updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -50,6 +54,10 @@ public class SupUpdateProductController {
                 e1.printStackTrace();
             }
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
     
     private boolean updateProduct() {

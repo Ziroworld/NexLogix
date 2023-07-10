@@ -9,9 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class SupUpdateUsernameController {
-    private SupdateFrame view;
+    private final SupdateFrame view;
     private SupUpdateUsernameModel model;
-    private SupUpdateUsernameDatabase database ;
+    private final SupUpdateUsernameDatabase database ;
+    private boolean result;
+    public boolean testdata;
     
     public SupUpdateUsernameController(SupdateFrame view){
         this.view = view;
@@ -24,10 +26,12 @@ public class SupUpdateUsernameController {
         @Override
         public void actionPerformed( ActionEvent e){
             try{
+                result = false;
                 model = view.getData();
                 if (isInputValid(model)) {
                     if (checkUserExist(model.getOldusername())) {
                         if (updateUsername(model.getOldusername(), model.getNewusername(), model.getPassword())) {
+                            result = true;
                             view.clearMeData();
                             showMessage("Supplier data updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                         } else {
@@ -45,6 +49,11 @@ public class SupUpdateUsernameController {
             }
         }
     }
+    
+    public boolean testdata(){
+        return result;
+    }
+    
     private boolean isInputValid(SupUpdateUsernameModel model) {
         if (!model.hasEmptyFields()){
         return true;

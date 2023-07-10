@@ -10,9 +10,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class SupUpdateSelfController {
-    supplierDashboard view;
-    SupUpdateSelfModel model;
-    SupUpdateSelfDatabse database;
+    private final supplierDashboard view;
+    private SupUpdateSelfModel model;
+    private final SupUpdateSelfDatabse database;
+    private boolean result;
+    public boolean testdata;
     
     
     public SupUpdateSelfController(supplierDashboard view){
@@ -28,6 +30,7 @@ public class SupUpdateSelfController {
         public void actionPerformed (ActionEvent e)
         {
             try {
+                result = false;
                 model = view.getSdata();
                 String username = model.getUsername();
                 System.out.println(username);
@@ -36,6 +39,7 @@ public class SupUpdateSelfController {
                 List<SupOwnDataModel> existingData = database.getSupplierData(username);
 
                 if (updateSupplier(existingData)) {
+                    result = true;
                     view.clearField();
                     JOptionPane.showMessageDialog(null, "Supplier data updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -46,6 +50,11 @@ public class SupUpdateSelfController {
             }
         }
     }
+    
+    public boolean testdata(){
+        return result;
+    }
+    
     public boolean updateSupplier(List<SupOwnDataModel> existingData) {
         // Validate input fields
         if (model.getUsername().isEmpty() || model.getCompanyname().isEmpty() ||
