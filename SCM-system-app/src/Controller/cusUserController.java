@@ -10,7 +10,7 @@ import java.awt.event.*;
 import java.sql.*;
 /**
  *
- * @author rohan-manandhar
+ *
  */
 public class cusUserController {
 private final CusRegistration view;
