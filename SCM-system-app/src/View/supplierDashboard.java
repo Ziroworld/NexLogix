@@ -17,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class supplierDashboard extends javax.swing.JFrame {
-    SupdateFrame frame;
-    Loginwin frame1;
-    DefaultTableModel dtm;
-    SupplierAddProductModel Model;
-    SupUpdateSelfModel callModel;
-    SupUpdateProductModel callModel1;
+    private SupdateFrame frame;
+    private Loginwin frame1;
+    private DefaultTableModel dtm;
+    private SupplierAddProductModel Model;
+    private SupUpdateSelfModel callModel;
+    private SupUpdateProductModel callModel1;
     private SupplierAddProductController S1;
     private final SupDeleteProductController controller;
     private SupUpdateSelfController concall;
@@ -296,9 +296,9 @@ public class supplierDashboard extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(16, 16, 16)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -341,8 +341,8 @@ public class supplierDashboard extends javax.swing.JFrame {
                                 .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)))
-                        .addContainerGap(12, Short.MAX_VALUE))))
+                                .addComponent(jLabel2)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -434,9 +434,9 @@ public class supplierDashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -548,7 +548,7 @@ public class supplierDashboard extends javax.swing.JFrame {
             }
         });
 
-        jPanel6.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.GreyInline"));
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         btnSelfUpdate.setBackground(new java.awt.Color(153, 153, 153));
         btnSelfUpdate.setFont(new java.awt.Font("Rasa", 0, 18)); // NOI18N
@@ -569,7 +569,6 @@ public class supplierDashboard extends javax.swing.JFrame {
             }
         });
 
-        txtSupid.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.GreyInline"));
         txtSupid.setFont(new java.awt.Font("Ubuntu Mono", 0, 15)); // NOI18N
         txtSupid.setForeground(new java.awt.Color(255, 255, 255));
         txtSupid.setBorder(null);
@@ -962,7 +961,17 @@ public class supplierDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-
+            // TODO add your handling code here:
+        MessageFormat header = new MessageFormat(":::  Product Data :::");
+        MessageFormat footer = new MessageFormat("Nexlogix, A powerful Supply Chain Management System");
+        try{
+            producttable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+            
+        }
+        catch (PrinterException e){
+            JOptionPane.showMessageDialog(null,"Error! Cannot Print"+e.getMessage());
+            
+        }
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void txtPidFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPidFocusLost
