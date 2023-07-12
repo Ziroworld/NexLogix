@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 
 public class CustomerOrderController {
     private final customerDashboard view;
-    CustomerOrderModel model;
+    private CustomerOrderModel model;
+    private boolean result;
+    public boolean testdata;
 
     public CustomerOrderController(customerDashboard view) {
         this.view = view;
@@ -20,6 +22,7 @@ public class CustomerOrderController {
     class OrderButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
+            result = false;
             if (e.getSource() == view.getBtnAddOrder()) {
                 model = view.getOrder();
                 String cUsername = model.getCusername();
@@ -34,6 +37,7 @@ public class CustomerOrderController {
                     if (validateProduct(pid) && validateSupplier(sUsername)) {
                         // Insert the order data into the "order" table
                         if (model.insertOrder(cUsername, pid, sUsername)) {
+                            result = true;
                             view.showMessage("Order added successfully.");
                             // Clear the input fields
                             view.orderclearFields();
@@ -49,7 +53,12 @@ public class CustomerOrderController {
             }
         }
     }
-    // e,pty flied validation
+    
+    public boolean testdata(){
+        return result;
+    }
+    
+    // empty field validation
     private boolean validateOrderData(String cUsername, int pid, String sUsername) {
         return !cUsername.isEmpty() && pid > 0 && !sUsername.isEmpty();
     }

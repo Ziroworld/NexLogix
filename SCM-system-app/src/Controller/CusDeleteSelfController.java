@@ -16,6 +16,8 @@ import javax.swing.Timer;
 public class CusDeleteSelfController {
     private final customerDashboard view;
     private CusDeleteSelfDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public CusDeleteSelfController(customerDashboard view){
         this.view = view;
@@ -42,9 +44,10 @@ public class CusDeleteSelfController {
     //deleting profile
     public void deleteProfile(String username){
         database = new CusDeleteSelfDatabase();
-        
+        result = false;
         if (database.checkCustomer(username)) {
             if (database.deleteCustomer(username)) {
+                result = true;
                 showMessage("Profile deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 // Additional actions after deleting the profile
             } else {
@@ -53,6 +56,10 @@ public class CusDeleteSelfController {
         } else {
             showMessage("Customer does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
     
     private void showMessage(String message, String title, int messageType) {

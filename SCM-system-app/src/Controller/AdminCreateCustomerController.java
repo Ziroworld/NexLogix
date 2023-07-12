@@ -7,9 +7,12 @@ import java.awt.event.*;
 import java.sql.*;
 
 public class AdminCreateCustomerController {
-    AdminDashboard View;
-    AdminCreateCustomerModel Model;
-    Connection conn;
+    private final AdminDashboard View;
+    private AdminCreateCustomerModel Model;
+    private Connection conn;
+    private boolean result;
+    public boolean testdata;
+    
     
     public AdminCreateCustomerController(AdminDashboard View)
     {
@@ -24,12 +27,14 @@ public class AdminCreateCustomerController {
         public void actionPerformed(ActionEvent e)
         {
             try {
+                result = false;
                 Model = View.getCUser();
                 if (validateUserData(Model)) {
                     if (checkUser(Model)) {
                         View.setMessage("Username already exists.");
                     } else {
                         if (insertUser(Model)) {
+                            result = true;
                             View.setMessage("User registered successfully.");
                             
                         } else {
@@ -46,6 +51,9 @@ public class AdminCreateCustomerController {
         }
     }
     
+    public boolean testData(){
+        return result;
+    }
     public boolean validateUserData(AdminCreateCustomerModel user) {
         // Perform validation checks on user data
         String username = user.getUsername();

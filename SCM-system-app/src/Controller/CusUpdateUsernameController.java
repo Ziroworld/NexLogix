@@ -18,6 +18,8 @@ public class CusUpdateUsernameController {
     private final CupdateFrame view;
     private CusUpdateUsernameModel model;
     private final CusUpdateUsernameDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public CusUpdateUsernameController ( CupdateFrame view){
         this.view = view;
@@ -32,10 +34,12 @@ public class CusUpdateUsernameController {
         {
             try
             {
+                result = false;
                 model = view.getData();
                 if (isInputValid(model)) {
                     if (checkUserExist(model.getOldusername())) {
                         if (updateUsername(model.getOldusername(), model.getNewusername(), model.getPassword())) {
+                            result = true;
                             view.clearMeData();
                             showMessage("Customer data updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                         } else {
@@ -53,6 +57,10 @@ public class CusUpdateUsernameController {
                 e1.getMessage();
             }
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
     
     private boolean isInputValid(CusUpdateUsernameModel model) {

@@ -17,8 +17,10 @@ import javax.swing.Timer;
  */
 public class AdminDeleteProductController {
     
-    private AdminDashboard view;
-    private AdminDeleteProductDatabase database;
+    private final AdminDashboard view;
+    private final AdminDeleteProductDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public AdminDeleteProductController(AdminDashboard view){
         this.view = view;
@@ -30,7 +32,7 @@ public class AdminDeleteProductController {
     {
         @Override
         public void actionPerformed(ActionEvent e){
-            
+
             if (e.getSource() == view.getBtnDeleteProd()){
                 int selectedRow = view.getProductTable().getSelectedRow();
                 
@@ -45,8 +47,10 @@ public class AdminDeleteProductController {
     }
     
     public void deleteProduct(int pid){
+        result = false;
         if (database.checkProduct(pid)) {
             if (database.deleteProduct(pid)) {
+                result = true;
                 showMessage("Product deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 showMessage("Failed to delete Product.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -54,6 +58,10 @@ public class AdminDeleteProductController {
         } else {
             showMessage("Product does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
     
     private void showMessage(String message, String title, int messageType) {

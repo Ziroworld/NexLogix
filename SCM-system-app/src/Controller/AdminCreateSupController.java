@@ -8,9 +8,11 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 
 public class AdminCreateSupController {
-    AdminDashboard view;
-    AdminCreateSupModel model;
-    AdminCreateSupDatabase database;
+    private final AdminDashboard view;
+    private AdminCreateSupModel model;
+    private final AdminCreateSupDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public AdminCreateSupController(AdminDashboard view){
         this.view = view;
@@ -23,6 +25,7 @@ public class AdminCreateSupController {
         @Override
         public void actionPerformed(ActionEvent e){
             try{
+                result = false;
                 model = view.getSupUSer();
                 
                 if (validateInput(model)) {
@@ -30,6 +33,7 @@ public class AdminCreateSupController {
                         JOptionPane.showMessageDialog(null, "Username, Company Name, Email, or Phone number already exists.", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         if (insertSupplierData(model)) {
+                            result = true;
                             JOptionPane.showMessageDialog(null, "Supplier created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                             view.clearFields2();
                         } else {
@@ -43,7 +47,9 @@ public class AdminCreateSupController {
             }
         }
     }
-    
+    public boolean testdata(){
+        return result;
+    }
         private boolean validateInput(AdminCreateSupModel model) {
         String username = model.getUsername();
         String companyname = model.getCompanyname();

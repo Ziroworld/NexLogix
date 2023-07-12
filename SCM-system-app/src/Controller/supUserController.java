@@ -15,7 +15,9 @@ public class supUserController {
     private final supRegistration view;
     private supRegModel model;
     private Connection conn;
-
+    private boolean result;
+    public boolean testdata;
+    
     public supUserController(supRegistration view) {
         this.view = view;
         view.addsRegisterListener(new supRegisterListener());
@@ -25,6 +27,7 @@ public class supUserController {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                result = false;
                 model = view.getUser();
                 if (validateSupplierData(model)) {
                     if (checkSupplier(model)) {
@@ -34,6 +37,7 @@ public class supUserController {
                             showMessage("Username cannot contain spaces.", "Error", JOptionPane.ERROR_MESSAGE);
                         } else {
                             if (insertSupplier(model)) {
+                                result = true;
                                 showMessage("Supplier registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                                 view.clearme();
                                 view.openLogin();
@@ -48,7 +52,9 @@ public class supUserController {
             }
         }
     }
-
+    public boolean testdata(){
+        return result;
+    }
     public boolean validateSupplierData(supRegModel supplier) {
         String username = supplier.getUsername();
         String companyName = supplier.getCompanyname();

@@ -20,6 +20,8 @@ public class LoginController {
     loginModel Model;
     Loginwin View;
     Connection conn;
+    private boolean result;
+    public boolean testdata;
     
     public LoginController(Loginwin View)
     {
@@ -33,18 +35,22 @@ public class LoginController {
         public void actionPerformed(ActionEvent e) 
         {
             try {
+                result = false;
                 Model = View.getUser();
                     String username = Model.getUsername();
                     String userType = checkUser(Model);
 
                     switch (userType) {
                         case "admin":
+                            result = true;
                             openAdminDashboard(username);
                             break;
                         case "customer":
+                            result = true;
                             openCustomerDashboard(username);
                             break;
                         case "supplier":
+                            result = true;
                             openSupplierDashboard(username);
                             break;
                         default:
@@ -57,6 +63,10 @@ public class LoginController {
             }
         }
         
+    public boolean testdata(){
+        return result;
+    }      
+    
     public String checkUser(loginModel user) throws Exception {
         conn = getConnection.dbConnect();
         String username = user.getUsername();

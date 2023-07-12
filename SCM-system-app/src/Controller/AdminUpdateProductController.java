@@ -15,9 +15,11 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class AdminUpdateProductController {
-    private AdminDashboard view;
+    private final AdminDashboard view;
     private AdminUpdateProductModel model;
-    private AdminUpdateProductDatabase database;
+    private final AdminUpdateProductDatabase database;
+    private boolean result;
+    public boolean testdata;
     
     public AdminUpdateProductController(AdminDashboard view ){
         this.view = view;
@@ -32,6 +34,7 @@ public class AdminUpdateProductController {
         public void actionPerformed(ActionEvent e){
             
             try {
+                result = false;
                 model = view.getProductdata();
                 int pid = model.getPid();
                 System.out.println(pid);
@@ -39,6 +42,7 @@ public class AdminUpdateProductController {
                 // Check if the product exists in the database
                 if (database.isProductExist(pid)) {
                     if (updateProduct()) {
+                        result = true;
                         view.clearFields3();
                         showMessage("Product updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -51,6 +55,10 @@ public class AdminUpdateProductController {
                 e1.printStackTrace();
             }
         }
+    }
+    
+    public boolean testdata(){
+        return result;
     }
     
     public boolean updateProduct() {
